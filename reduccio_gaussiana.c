@@ -10,7 +10,7 @@ void reduccio_gaussiana(int p, int files, int cols, double m_ampliada[files][col
     /* Aplicant la reducció Gaussiana */
     printf("\nAplicant la reducció Gaussiana...\n");
 
-    // Per calcular el múltiple hem de tenir en compte que s'ha d'aconseguir que la suma sigui igual a p.
+    // Per calcular el múltiple hem de tenir en compte que multiple*Fi + Fj ha de ser igual a p.
     // Es a dir m[i][j] + multiple * m[j][j] = p => multiple = (p - m[i][j]) / m[j][j]
 
     // ******* FALTA REVISAR DE NOU LA MATRIU PER VEURE SI FALTEN ZEROS PER FICAR FENT INTERCANVIS I TRANSFORMACIONS DE FILES ****** //
@@ -27,7 +27,7 @@ void reduccio_gaussiana(int p, int files, int cols, double m_ampliada[files][col
     }
 
     // Comprovem si hi ha alguna fila nula i si existeix la fiquem al final
-    for(int i = 1; i < files; i++){
+    for(int i = 0; i < files; i++){
         if(vector_nul(files, m_ampliada[i]) == 1) {
             intercanvi_files(i, files-1, cols, m_ampliada);
         } 
@@ -37,7 +37,7 @@ void reduccio_gaussiana(int p, int files, int cols, double m_ampliada[files][col
 
 int main()
 {
-    int n = 2;
+    int n = 3;
 	int p = 7;
 
     double m_ampliada[n][n+1];

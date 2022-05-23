@@ -25,21 +25,20 @@ int discussio_sistemes(int p, int files, int cols, double m_ampliada[files][cols
     }
     else {
         printf("\nEl sistema és compatible determinat i la solucó és:\n\n");
-        int x[files]; // Vector que conté els valors de les incògnites
-        int b, invers; // Valor del vector columna de la matriu ampliada
+        int x[cols-1];
+        int b, invers;
 
         // Calculem el valor de les incògnites
         for(int i = 0; i < files; i++){
             b = (int)m_ampliada[files-1-i][cols-1]; 
             invers = invers_a(m_ampliada[files-1-i][cols-2-i], p);
             for(int j = cols-2-i; j < cols-2; j++){
-                //if(m_ampliada[i][j] == 0) continue;
-                b = (b + ((x[files-j] * (int)-m_ampliada[files-1-i][cols-i-j]) % p) % p);
+                b = ((b + p) - ((x[cols-i-j] * (int)m_ampliada[files-1-i][cols-i-j]) % p) % p);
             }
-            x[files-1-i] = (b * invers) % p;  
+            x[cols-2-i] = (b * invers) % p;  
         }
 
-        for(int i = 0; i < files; i++){
+        for(int i = 0; i < cols-1; i++){
             printf(" x[%d] = %d\n", i, x[i]);
         }
         printf("\n");
