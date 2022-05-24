@@ -4,8 +4,8 @@
 
 #include "isaac.h"
 
-void intercanvi_files(int fila_inici, int fila_desti, int cols, double m[][cols]){
-    double aux_vector[cols];
+void intercanvi_files(int fila_inici, int fila_desti, int cols, int m[][cols]){
+    int aux_vector[cols];
 
     for(int j = 0; j < cols; j++){
         aux_vector[j] = m[fila_desti][j];

@@ -4,13 +4,16 @@
 
 #include "isaac.h"
 
-void matriuxvector(int dim, int p, double vect[], double mat[][dim]){
-    double resul[dim];
+void matriuxvector(int dim, int p, int vect[], int mat[][dim]){
+    int resul[dim];
     for(int i = 0; i < dim; i++){
+        resul[i] = 0;
         for(int j = 0; j < dim; j++){
-            resul[i] += (vect[j] * mat[j][i]);
+            resul[i] += (vect[j] * mat[j][i]) % p;
+            printf("Result[%d] = %d\n", i, resul[i]);
         }
-        resul[i] = (int)resul[i] % p;
+        resul[i] = resul[i] % p;
+        printf("Result[%d] = %d\n\n", i, resul[i]);
     }
     printf("El resultat de multiplicar el vector i matriu introduïdes és\n");
     imprimeixvector(dim, resul);

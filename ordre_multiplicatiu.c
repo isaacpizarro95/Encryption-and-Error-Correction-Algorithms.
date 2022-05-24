@@ -4,6 +4,7 @@
 
 #include "isaac.h"
 
+// Retorna 0 si no es troba ordre_multiplicatiu, -1 si p no és primer i n en cas de trobar-lo
 int ordre_multiplicatiu(int a, int p){
     int n = 1;
     int k = 1;
@@ -11,7 +12,7 @@ int ordre_multiplicatiu(int a, int p){
     // Comprovem que el mòdul sigui primer per comprovar que a i p són coprimers
     if(primer_test(p) == 0){
         printf("\n[ERROR] El mòdul ha de ser un nombre primer\n\n");
-        return 0;
+        return -1;
     }
 
     while (n < p){
@@ -22,5 +23,5 @@ int ordre_multiplicatiu(int a, int p){
         n++;
     }
 
-    return -1;
+    return 0;
 }

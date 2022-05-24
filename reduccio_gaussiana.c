@@ -4,47 +4,61 @@
 
 #include "isaac.h"
 
-void reduccio_gaussiana(int p, int files, int cols, double m_ampliada[files][cols]){
-    double multiple;
+void reduccio_gaussiana(int p, int files, int cols, int m_ampliada[files][cols]){
+    int multiple, invers;
 
     /* Aplicant la reducció Gaussiana */
     printf("\nAplicant la reducció Gaussiana...\n");
 
-    // Per calcular el múltiple hem de tenir en compte que multiple*Fi + Fj ha de ser igual a p.
-    // Es a dir m[i][j] + multiple * m[j][j] = p => multiple = (p - m[i][j]) / m[j][j]
+    // Per calcular el múltiple:  m[i][j] + multiple * m[j][j] = p => multiple = (p - m[i][j]) / m[j][j]
 
     // ******* FALTA REVISAR DE NOU LA MATRIU PER VEURE SI FALTEN ZEROS PER FICAR FENT INTERCANVIS I TRANSFORMACIONS DE FILES ****** //
-    for(int j = 0; j < cols/2; j++){
+    for(int j = 0; j <= cols/2; j++){        
+
+        // Comprovem si hi ha alguna fila nula i si existeix la fiquem al final
+        if(vector_nul(files, m_ampliada[j]) == 1 && j == files - 2){
+            intercanvi_files(j, files-1, cols, m_ampliada);
+            continue;
+        }
+        else if(vector_nul(files, m_ampliada[j]) == 1){
+            intercanvi_files(j, files-1, cols, m_ampliada);
+        }
+
+        // Reduim modul p els coeficients del triangle inferior
         for(int i = j+1; i < files; i++){
             if(m_ampliada[j][j] == 0 && m_ampliada[i][j] != 0){
                 intercanvi_files(j, i, cols, m_ampliada);
                 //continue;
             }
-            multiple = (p - m_ampliada[i][j]) / m_ampliada[j][j];
+            // Calculem l'invers del pivot
+            invers = invers_a(m_ampliada[j][j], p);
+            // Resolem la equació del tipus: m_ij + (m_jj * múltiple) = 0 (mod p)
+            // (m_jj^-1 * m_jj) * múltiple = (((0 + p) - m_ij) * m_jj^-1) % p
+            multiple = ((p - m_ampliada[i][j]) * invers) % p;
             suma_multiple(multiple, p, j, i, cols, m_ampliada);
   
         }
     }
 
-    // Comprovem si hi ha alguna fila nula i si existeix la fiquem al final
-    for(int i = 0; i < files; i++){
+    
+    /*for(int i = 0; i < files; i++){
         if(vector_nul(files, m_ampliada[i]) == 1) {
             intercanvi_files(i, files-1, cols, m_ampliada);
         } 
-    }
+    }*/
     imprimeixmatriu(files, cols, m_ampliada);
 }
 
 int main()
 {
-    int n = 3;
+    int n = 4;
 	int p = 7;
 
-    double m_ampliada[n][n+1];
+    int m_ampliada[n][n+1];
 
 	/* 2. Llegint matriu aumentada */
     printf("\nLlegint matriu aumentada...\n");
-	llegeixmatriu(n, n+1, m_ampliada);
+	llegeixmatriu(p, n, n+1, m_ampliada);
     imprimeixmatriu(n, n+1, m_ampliada);
     
     reduccio_gaussiana(p, n, n+1, m_ampliada);
