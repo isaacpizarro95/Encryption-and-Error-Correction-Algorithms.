@@ -4,8 +4,6 @@
 
 #include "isaac.h"
 
-// **** REVISAR COM DISCUTEIX EL SISTEMA, A VEGADES S'EQUIVOCA **** //
-// Només es calcula la solució de les incògnites si el sistema és compatible determinat
 int discussio_sistemes(int p, int files, int cols, int m_ampliada[files][cols]){
     int compatible = 1; // 1 si és compatible i 0 si no ho és
     int determinat = 1; // 1 si és determinat i 0 si no ho és
@@ -32,11 +30,9 @@ int discussio_sistemes(int p, int files, int cols, int m_ampliada[files][cols]){
         for(int i = 0; i < files; i++){
             b = m_ampliada[files-1-i][cols-1]; 
             invers = invers_a(m_ampliada[files-1-i][cols-2-i], p);
-            //printf("\n b = %d\t| invers = %d\n", b, invers);
-            for(int j = cols-2-i; j < cols-2; j++){
-                b = ((b + p) - ((x[cols-i-j] * m_ampliada[files-1-i][cols-i-j]) % p)) % p;
+            for(int j = 0; j < i; j++){
+                b = ((b + p) - ((x[cols-2-j] * m_ampliada[files-1-i][cols-2-j]) % p)) % p;
             }
-            //printf(" b_final = %d\n", b);
             x[cols-2-i] = (b * invers) % p;  
         }
 

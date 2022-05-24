@@ -17,6 +17,7 @@ void imprimeixvector(int dim, int vect[]);
 void imprimeixmatriu(int files, int cols, int m[][cols]);
 void matriuxvector(int dim, int p, int vect[], int mat[][dim]);
 void vectorxescalar(int dim, int a, int p, int vector[]);
+void filaxescalar(int a, int p, int fila, int cols, int m[][cols]);
 void intercanvi_files(int fila_inici, int fila_desti, int cols, int m[][cols]);
 void suma_multiple(int multiple, int p, int fila_inici, int fila_desti, int cols, int m[][cols]);
 void reduccio_gaussiana(int p, int files, int cols, int m_ampliada[files][cols]);

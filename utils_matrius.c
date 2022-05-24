@@ -55,7 +55,7 @@ void llegeixmatriu(int p, int files, int cols, int m[][cols]){
 
 void imprimeixvector(int dim, int vect[]){
     for(int i = 0; i < dim; i++){
-        printf("%d    ", vect[i]);
+        printf("%d\t", vect[i]);
     }
     printf("\n");
     return;
@@ -64,7 +64,7 @@ void imprimeixvector(int dim, int vect[]){
 void imprimeixmatriu(int files, int cols, int m[][cols]){
     for(int i = 0; i < files; i++){
         for(int j = 0; j < cols; j++){
-            printf("%d    ", m[i][j]);
+            printf("%d\t", m[i][j]);
         }
         printf("\n");
     }
