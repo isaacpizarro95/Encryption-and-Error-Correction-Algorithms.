@@ -9,7 +9,7 @@ void reduccio_gaussiana(int p, int files, int cols, int m_ampliada[files][cols])
     int multiple, invers;
 
     printf("\nAplicant la reducció Gaussiana...\n");
-    for(int j = 0; j <= cols/2; j++){        
+    for(int j = 0; j <= cols - 2; j++){        
 
         // Comprovem si hi ha alguna fila nula i si existeix la fiquem al final
         if(vector_nul(files, m_ampliada[j]) == 1 && j == files - 2){
@@ -39,7 +39,7 @@ void reduccio_gaussiana(int p, int files, int cols, int m_ampliada[files][cols])
 
 int main()
 {
-    int n = 10;
+    int n = 14;
 	int p = 5;
     int m_ampliada[n][n+1];
 
