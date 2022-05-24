@@ -4,14 +4,14 @@
 
 #include "isaac.h"
 
-int discussio_sistemes(int p, int files, int cols, int m_ampliada[files][cols]){
+int discussio_sistemes(int p, int files, int cols, int m[files][cols]){
     int compatible = 1; // 1 si és compatible i 0 si no ho és
     int determinat = 1; // 1 si és determinat i 0 si no ho és
     for(int i = 0; i < files; i++){
-        if(vector_incompatible(cols, m_ampliada[i]) == 1){
+        if(vector_incompatible(cols, m[i]) == 1){
             compatible = 0;
         }
-        if(vector_nul(cols, m_ampliada[i]) == 1){
+        if(vector_nul(cols, m[i]) == 1){
             determinat = 0;
         }
     }
@@ -28,10 +28,10 @@ int discussio_sistemes(int p, int files, int cols, int m_ampliada[files][cols]){
 
         // Calculem el valor de les incògnites
         for(int i = 0; i < files; i++){
-            b = m_ampliada[files-1-i][cols-1]; 
-            invers = invers_a(m_ampliada[files-1-i][cols-2-i], p);
+            b = m[files-1-i][cols-1]; 
+            invers = invers_a(m[files-1-i][cols-2-i], p);
             for(int j = 0; j < i; j++){
-                b = ((b + p) - ((x[cols-2-j] * m_ampliada[files-1-i][cols-2-j]) % p)) % p;
+                b = ((b + p) - ((x[cols-2-j] * m[files-1-i][cols-2-j]) % p)) % p;
             }
             x[cols-2-i] = (b * invers) % p;  
         }

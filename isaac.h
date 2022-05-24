@@ -20,12 +20,14 @@ void vectorxescalar(int dim, int a, int p, int vector[]);
 void filaxescalar(int a, int p, int fila, int cols, int m[][cols]);
 void intercanvi_files(int fila_inici, int fila_desti, int cols, int m[][cols]);
 void suma_multiple(int multiple, int p, int fila_inici, int fila_desti, int cols, int m[][cols]);
-void reduccio_gaussiana(int p, int files, int cols, int m_ampliada[files][cols]);
-int discussio_sistemes(int p, int files, int cols, int m_ampliada[files][cols]);
+void reduccio_gaussiana(int p, int files, int cols, int m[files][cols]);
+int discussio_sistemes(int p, int files, int cols, int m[files][cols]);
 int vector_nul(int dim, int vect[]);
 int vector_incompatible(int dim, int vect[]);
 
 // Algorisme de Reed-Solomon
-
+int calcul_potencia(int p, int a, int potencia);
+void crea_matriu_vandermonde(int p, int files, int cols, int m[][cols]);
+void codificacio(int p, int k, int paraula[k], int m[p-1][k]);
 
 #endif

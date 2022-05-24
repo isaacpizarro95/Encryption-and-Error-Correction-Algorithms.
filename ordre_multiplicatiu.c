@@ -22,6 +22,5 @@ int ordre_multiplicatiu(int a, int p){
         }
         n++;
     }
-
     return 0;
 }
