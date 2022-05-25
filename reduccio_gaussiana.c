@@ -20,6 +20,7 @@ void reduccio_gaussiana(int p, int files, int cols, int v_codificat[files], int 
         m_ampliada[i][cols-1] = v_codificat[i];
     }
 
+    printf("Apliquem la reducció gaussiana\n");
     for(int j = 0; j < cols-1; j++){
         int i;
         // Comprovem si hi ha alguna fila nula i si existeix la fiquem al final
@@ -48,5 +49,6 @@ void reduccio_gaussiana(int p, int files, int cols, int v_codificat[files], int 
 
     // Discussió del sistema
     discussio_sistemes(p, files, cols, v_descodificat, m_ampliada);
+    printf("\n------------------------------------------------------------------------------------------------------------------------\n\n");
     free(m_ampliada);
 }

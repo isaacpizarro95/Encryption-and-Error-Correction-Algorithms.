@@ -51,9 +51,8 @@ int main(int argc, char *argv[]){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
-    //llegeixvector(p, r, missatge);
     for(int i = 0; i < r; i++){
-        missatge[i] = (i*i) % p;
+        missatge[i] = (i*i) % p; // Missatge arbitrari per fer proves
     }
 
     if(r % k != 0){
@@ -114,19 +113,20 @@ int main(int argc, char *argv[]){
     imprimeixvector(r, missatge_descodificat);
     printf("\n");
 
-
-    // Alliberem la memòria que haviem reservat
     for(int i = 0; i < r; i++){
         if(missatge[i] != missatge_descodificat[i]){
             printf("\n\nEl missatge no coincideix\n\n");
         }
     }
+    // Alliberem la memòria que haviem reservat
     printf("\n\nMissatge OK\n\n");
     printf("\tp = %d\n\n", p);
     free(missatge);
     free(paraules);
     free(missatge_codificat);
     free(codificat);
+    free(missatge_descodificat);
+    free(descodificat);
     free(m);
     return 0;
 }

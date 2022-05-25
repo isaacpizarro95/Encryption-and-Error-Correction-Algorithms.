@@ -1,4 +1,4 @@
-// Codificació del missatge
+// Descodificació del missatge
 // Autor: Isaac Pizarro Contreras
 // NIU: 1636421
 
