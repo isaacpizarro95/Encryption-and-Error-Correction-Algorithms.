@@ -6,7 +6,7 @@
 
 void codificacio(int p, int r, int k, int paraula[r/k][k], int codificat[r/k][p-1], int m[p-1][k], int missatge_codificat[]){
     for(int i = 0; i < r/k; i++){
-        matriuxvector_codificar(p, p-1, k, paraula[i], codificat[i], m);
+        matriuxvector(p, p-1, k, paraula[i], codificat[i], m);
     }
 
     int l = 0;

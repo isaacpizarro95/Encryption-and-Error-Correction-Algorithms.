@@ -6,8 +6,8 @@
 
 int main(int argc, char *argv[]){
     // Valors per defecte de p i k
-    int p = 7; 
-    int k = 5;
+    int p = 5; 
+    int k = 3;
 
     // Modifiquem, si és necessari, els valors de p i k a partir dels arguments del main 
     /*if(argv[1][0] == '-' || argv[2][0] == '-'){
@@ -30,23 +30,28 @@ int main(int argc, char *argv[]){
         exit(1);
     };
 
+
     // 1. Creant matriu
     printf("\nCreem la matriu\n\n");
 
     crea_matriu_vandermonde(p, p-1, k, m);
     imprimeixmatriu(p-1, k, m);
     printf("\n");
-    
-    // 2. Llegim missatge
-    printf("\nLlegim el missatge\n\n");
 
-    int r = 15;
+
+    // 2. Llegim missatge
+    //printf("\nLlegim el missatge\n\n");
+
+    int r = k*3; // Nombre arbitrari per fer proves
     int *missatge;
     if((missatge = (int *) malloc(r * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
-    llegeixvector(p, r, missatge);
+    //llegeixvector(p, r, missatge);
+    for(int i = 0; i < r; i++){
+        missatge[i] = 1;
+    }
 
     if(r % k != 0){
         r = realloc_missatge(r, k, missatge);
@@ -54,6 +59,7 @@ int main(int argc, char *argv[]){
     }
     printf("\nMissatge\n");
     imprimeixvector(r, missatge);
+
 
     // 3. Dividim el missatge en paraules
     printf("\nDividim el missatge en paraules\n\n");
@@ -66,6 +72,7 @@ int main(int argc, char *argv[]){
     dividir_missatge(r, k, missatge, paraules);
     imprimeixmatriu(r/k, k, paraules);
     printf("\n");
+
 
     // 4. Codifiquem el missatge
     printf("\nCodifiquem el missatge\n\n");
@@ -85,6 +92,7 @@ int main(int argc, char *argv[]){
     imprimeixvector(((r/k)*(p-1)), missatge_codificat);
     printf("\n");
 
+
     // 5. Descodifiquem el missatge
     printf("\nDescodifiquem el missatge\n\n");
     int (*descodificat)[k];
@@ -96,17 +104,13 @@ int main(int argc, char *argv[]){
     if((missatge_descodificat = (int *) malloc(r * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
-    }   
+    }
+
     descodificacio(p, r, k, codificat, descodificat, m, missatge_descodificat);
-    imprimeixmatriu(r/k, k, descodificat);
     printf("\nMissatge descodificat\n");
     imprimeixvector(r, missatge_descodificat);
     printf("\n");
 
-    /* 2. Aplicant la reducció Gaussiana */
-    //reduccio_gaussiana(p, p-1, k, m);
-    /* 3. Discussió del sistema */
-    //discussio_sistemes(p, p-1, k, m);
 
     // Alliberem la memòria que haviem reservat
     free(missatge);

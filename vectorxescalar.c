@@ -5,8 +5,7 @@
 #include "isaac.h"
 
 // Multiplica un vector qualsevol per un element de Fp
-void vectorxescalar(int dim, int a, int p, int vector[]){
-    int resul[dim];
+void vectorxescalar(int dim, int a, int p, int vector[], int resul[]){
     for(int i = 0; i < dim; i++){
         resul[i] = (a * vector[i]) % p;
     }
