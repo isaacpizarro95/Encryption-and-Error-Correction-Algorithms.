@@ -6,8 +6,8 @@
 
 int main(int argc, char *argv[]){
     // Valors per defecte de p i k
-    int p = 5; 
-    int k = 3;
+    int p = 11; 
+    int k = p-3;
 
     // Modifiquem, si és necessari, els valors de p i k a partir dels arguments del main 
     /*if(argv[1][0] == '-' || argv[2][0] == '-'){
@@ -22,11 +22,14 @@ int main(int argc, char *argv[]){
         Es codifiquen les paraules multiplicant 
     }
     */
-
+    if(primer_test(p) == 0){
+        printf("\n[ERROR] p ha de ser un nombre primer\n\n");
+        exit(1);
+    }
     // Declarem la matriu de Vandermonde
     int (*m)[k];
     if((m = (int (*)[k]) malloc((p-1) * k * sizeof(int))) == NULL){
-        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        printf("\n[ERROR] Malloc no ha pogut reservar l'espai de memòria\n\n");
         exit(1);
     };
 
@@ -50,7 +53,7 @@ int main(int argc, char *argv[]){
     }
     //llegeixvector(p, r, missatge);
     for(int i = 0; i < r; i++){
-        missatge[i] = 1;
+        missatge[i] = (i*i) % p;
     }
 
     if(r % k != 0){
@@ -113,6 +116,13 @@ int main(int argc, char *argv[]){
 
 
     // Alliberem la memòria que haviem reservat
+    for(int i = 0; i < r; i++){
+        if(missatge[i] != missatge_descodificat[i]){
+            printf("\n\nEl missatge no coincideix\n\n");
+        }
+    }
+    printf("\n\nMissatge OK\n\n");
+    printf("\tp = %d\n\n", p);
     free(missatge);
     free(paraules);
     free(missatge_codificat);

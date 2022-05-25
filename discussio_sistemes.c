@@ -18,33 +18,33 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[cols-1], i
     }
     if(compatible == 0){
         printf("\nEl sistema és incompatible i no té solució\n");
+        exit(1);
     }
     else if(compatible == 1 && determinat == 0){
         printf("\nEl sistema és compatible indeterminat\n");
+        exit(1);
     }
     else {
-        printf("\nEl sistema és compatible determinat i la solucó és:\n\n");
+        printf("\nEl sistema és compatible determinat\n\n");
         int b, invers;
         int n_nuls = 0;
 
         // Calculem el valor de les incògnites
         for(int i = 0; i < files; i++){
+            // Si hi ha alguna fila nula al final del sistema la ignorem
             if(vector_nul(cols, m[files-1-i]) == 1){
                 n_nuls++;
                 continue;
             }
+            // b = valor del vector columna de la m_ampliada de la fila actual
             b = m[files-1-i][cols-1]; 
             invers = invers_a(m[files-1-i][cols-2-i+n_nuls], p);
             for(int j = 0; j < i-n_nuls; j++){
                 b = ((b + p) - ((v_descodificat[cols-2-j] * m[files-1-i][cols-2-j]) % p)) % p;
             }
+            // v_descodificat = valor de les incògnites
             v_descodificat[cols-2-i+n_nuls] = (b * invers) % p;  
         }
-
-        for(int i = 0; i < cols-1; i++){
-            printf(" v_descodificat[%d] = %d\n", i, v_descodificat[i]);
-        }
-        printf("\n");
     }
     return 0;
 }
