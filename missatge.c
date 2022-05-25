@@ -4,9 +4,8 @@
 
 #include "isaac.h"
 
-// Comprova si r és divisible per k i si no ho és, redimensiona amb realloc el vector 'missatge' amb un r on r % k = 0
+// Si r no és divisible per k redimensiona amb realloc el vector 'missatge' amb un r on r % k = 0
 int realloc_missatge(int r, int k, int *missatge){
-    //int aux = r;
     int *nou_missatge;
 
     while(r % k != 0){
@@ -18,11 +17,10 @@ int realloc_missatge(int r, int k, int *missatge){
         exit(1);        
     };
     missatge = nou_missatge;
-    printf("Imprimir missatge in realloc\n");
-    imprimeixvector(r, missatge);
     return r;
 }
 
+// Divideix el missatge en paraules(vectors) formant una matriu de paraules
 void dividir_missatge(int r, int k, int missatge[r], int paraules[r/k][k]){
     int l = 0;
     for(int i = 0; i < r/k; i++){

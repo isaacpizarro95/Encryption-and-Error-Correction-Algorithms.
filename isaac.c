@@ -6,8 +6,8 @@
 
 int main(int argc, char *argv[]){
     // Valors per defecte de p i k
-    int p = 13; 
-    int k = 10;
+    int p = 7; 
+    int k = 5;
 
     // Modifiquem, si és necessari, els valors de p i k a partir dels arguments del main 
     /*if(argv[1][0] == '-' || argv[2][0] == '-'){
@@ -32,54 +32,87 @@ int main(int argc, char *argv[]){
 
     // 1. Creant matriu
     printf("\nCreem la matriu\n\n");
+
     crea_matriu_vandermonde(p, p-1, k, m);
     imprimeixmatriu(p-1, k, m);
     printf("\n");
     
     // 2. Llegim missatge
     printf("\nLlegim el missatge\n\n");
+
     int r = 15;
     int *missatge;
-
-    if((missatge= (int *) malloc(r * sizeof(int))) == NULL){
+    if((missatge = (int *) malloc(r * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
-
     llegeixvector(p, r, missatge);
+
     if(r % k != 0){
         r = realloc_missatge(r, k, missatge);
         printf("r = %d\n", r);
     }
-    printf("\nMissatge post-realloc\n");
+    printf("\nMissatge\n");
     imprimeixvector(r, missatge);
-    printf("\n");
 
-    /*// 3. Dividim el missatge en paraules
+    // 3. Dividim el missatge en paraules
     printf("\nDividim el missatge en paraules\n\n");
-    int paraules[r/k][k];
+
+    int (*paraules)[k];
+    if((paraules = (int (*)[k]) malloc((r/k) * k * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);
+    };
     dividir_missatge(r, k, missatge, paraules);
     imprimeixmatriu(r/k, k, paraules);
     printf("\n");
 
     // 4. Codifiquem el missatge
     printf("\nCodifiquem el missatge\n\n");
-    int codificat[r/k][k];
-    for(int i = 0; i < r/k; i++){
-        codificacio(p, k, paraules[i], codificat[i], m);
+    int (*codificat)[p-1];
+    if((codificat = (int (*)[p-1]) malloc((r/k) * (p-1) * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);        
     }
-    imprimeixmatriu(r/k, k, codificat);
-    printf("\n");*/
+    int *missatge_codificat;
+    if((missatge_codificat = (int *) malloc(((r/k)*(p-1)) * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);
+    }
+    codificacio(p, r, k, paraules, codificat, m, missatge_codificat);
+    imprimeixmatriu(r/k, p-1, codificat);
+    printf("\nMissatge codificat\n");
+    imprimeixvector(((r/k)*(p-1)), missatge_codificat);
+    printf("\n");
 
-    // 5. Decodifiquem el missatge
-
+    // 5. Descodifiquem el missatge
+    printf("\nDescodifiquem el missatge\n\n");
+    int (*descodificat)[k];
+    if((descodificat = (int (*)[k]) malloc((r/k) * k * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);        
+    }
+    int *missatge_descodificat;
+    if((missatge_descodificat = (int *) malloc(r * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);
+    }   
+    descodificacio(p, r, k, codificat, descodificat, m, missatge_descodificat);
+    imprimeixmatriu(r/k, k, descodificat);
+    printf("\nMissatge descodificat\n");
+    imprimeixvector(r, missatge_descodificat);
+    printf("\n");
 
     /* 2. Aplicant la reducció Gaussiana */
     //reduccio_gaussiana(p, p-1, k, m);
     /* 3. Discussió del sistema */
     //discussio_sistemes(p, p-1, k, m);
+
+    // Alliberem la memòria que haviem reservat
     free(missatge);
-    //missatge = NULL;
+    free(paraules);
+    free(missatge_codificat);
+    free(codificat);
     free(m);
     return 0;
 }
