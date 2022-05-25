@@ -30,7 +30,7 @@ int calcul_potencia(int p, int a, int potencia);
 void crea_matriu_vandermonde(int p, int files, int cols, int m[][cols]);
 void codificacio(int p, int k, int paraula[k], int codificat[k], int m[p-1][k]);
 void dividir_missatge(int r, int k, int missatge[r], int paraules[r/k][k]);
-void llegeix_missatge(int p, int r, int k, int missatge[r]);
+int realloc_missatge(int r, int k, int *missatge);
 
 // Descodificació - Algorisme de Berlekamp-Welch
 

@@ -6,34 +6,56 @@
 
 int main(int argc, char *argv[]){
     // Valors per defecte de p i k
-    int p = 257; 
-    int k = 200;
+    int p = 13; 
+    int k = 10;
 
     // Modifiquem, si és necessari, els valors de p i k a partir dels arguments del main 
-    if(argv[1][0] == '-' || argv[2][0] == '-'){
+    /*if(argv[1][0] == '-' || argv[2][0] == '-'){
         int *apuntador_p = &p;
         int *apuntador_k = &k;
         check_valors(argv, apuntador_p, apuntador_k);
     }
+    else {
+        argv[2] será el fitxer amb el missatge a codificar
+        Llegirem argv[2] i ho guardarem en el vector 'missatge[r]'
+        Es dividirà en q = r/k paraules de longitud k 'paraules[q][k]'
+        Es codifiquen les paraules multiplicant 
+    }
+    */
 
     // Declarem la matriu de Vandermonde
-    int m[p-1][k];
- 
+    int (*m)[k];
+    if((m = (int (*)[k]) malloc((p-1) * k * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);
+    };
 
     // 1. Creant matriu
     printf("\nCreem la matriu\n\n");
     crea_matriu_vandermonde(p, p-1, k, m);
     imprimeixmatriu(p-1, k, m);
     printf("\n");
-    /*
+    
     // 2. Llegim missatge
     printf("\nLlegim el missatge\n\n");
     int r = 15;
-    int missatge[r];
-    llegeix_missatge(p, r, k, missatge);
+    int *missatge;
+
+    if((missatge= (int *) malloc(r * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);
+    }
+
+    llegeixvector(p, r, missatge);
+    if(r % k != 0){
+        r = realloc_missatge(r, k, missatge);
+        printf("r = %d\n", r);
+    }
+    printf("\nMissatge post-realloc\n");
+    imprimeixvector(r, missatge);
     printf("\n");
 
-    // 3. Dividim el missatge en paraules
+    /*// 3. Dividim el missatge en paraules
     printf("\nDividim el missatge en paraules\n\n");
     int paraules[r/k][k];
     dividir_missatge(r, k, missatge, paraules);
@@ -56,5 +78,8 @@ int main(int argc, char *argv[]){
     //reduccio_gaussiana(p, p-1, k, m);
     /* 3. Discussió del sistema */
     //discussio_sistemes(p, p-1, k, m);
+    free(missatge);
+    //missatge = NULL;
+    free(m);
     return 0;
 }
