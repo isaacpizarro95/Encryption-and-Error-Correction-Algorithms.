@@ -15,7 +15,7 @@ void llegeixvector(int p, int dim, int vect[]);
 void llegeixmatriu(int p, int files, int cols, int m[][cols]);
 void imprimeixvector(int dim, int vect[]);
 void imprimeixmatriu(int files, int cols, int m[][cols]);
-void matriuxvector(int dim, int p, int vect[], int mat[][dim]);
+void matriuxvector(int dim, int p, int vect[], int codificat[], int mat[][dim]);
 void vectorxescalar(int dim, int a, int p, int vector[]);
 void filaxescalar(int a, int p, int fila, int cols, int m[][cols]);
 void intercanvi_files(int fila_inici, int fila_desti, int cols, int m[][cols]);
@@ -28,6 +28,7 @@ int vector_incompatible(int dim, int vect[]);
 // Algorisme de Reed-Solomon
 int calcul_potencia(int p, int a, int potencia);
 void crea_matriu_vandermonde(int p, int files, int cols, int m[][cols]);
-void codificacio(int p, int k, int paraula[k], int m[p-1][k]);
+void codificacio(int p, int k, int paraula[k], int codificat[k], int m[p-1][k]);
+void dividir_missatge(int r, int k, int missatge[r], int paraules[r/k][k]);
 
 #endif

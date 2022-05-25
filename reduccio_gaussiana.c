@@ -8,8 +8,8 @@ void reduccio_gaussiana(int p, int files, int cols, int m[files][cols]){
     int multiple, invers;
 
     printf("\nAplicant la reducció Gaussiana...\n");
-    for(int j = 0; j <= cols - 2; j++){        
-
+    for(int j = 0; j < cols; j++){        
+        int i;
         // Comprovem si hi ha alguna fila nula i si existeix la fiquem al final
         if(vector_nul(files, m[j]) == 1 && j == files - 2){
             intercanvi_files(j, files-1, cols, m);
@@ -20,7 +20,7 @@ void reduccio_gaussiana(int p, int files, int cols, int m[files][cols]){
         }
 
         // Reduim modul p els coeficients del triangle inferior
-        for(int i = j+1; i < files; i++){
+        for(i = j + 1; i < cols-1; i++){
             // Si el pivot és 0 i el coeficient de la següent fila en la mateixa columna no ho és, intercanviem les files
             if(m[j][j] == 0 && m[i][j] != 0){
                 intercanvi_files(j, i, cols, m);
@@ -32,6 +32,12 @@ void reduccio_gaussiana(int p, int files, int cols, int m[files][cols]){
             // (m_jj^-1 * m_jj) * múltiple = (((0 + p) - m_ij) * m_jj^-1) % p
             multiple = ((p - m[i][j]) * invers) % p;
             suma_multiple(multiple, p, j, i, cols, m);
+        }
+
+        // Bucle afegit per la particularitat en les matrius de vandermonde
+        // Les files "innecesàries" per calcular les incògnites les transformem en 0 multiplicant els seus elements per p
+        for(i = i; i < files; i++){
+            filaxescalar(p, p, i, cols, m);
         }
     }
     imprimeixmatriu(files, cols, m);

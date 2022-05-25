@@ -7,7 +7,7 @@
 int discussio_sistemes(int p, int files, int cols, int m[files][cols]){
     int compatible = 1; // 1 si és compatible i 0 si no ho és
     int determinat = 1; // 1 si és determinat i 0 si no ho és
-    for(int i = 0; i < files; i++){
+    for(int i = 0; i < cols-1; i++){
         if(vector_incompatible(cols, m[i]) == 1){
             compatible = 0;
         }
