@@ -4,12 +4,16 @@
 
 #include "isaac.h"
 
-void dividir_missatge(int r, int k, int missatge[r], int paraules[r/k][k]){
-    int l = 0;
+void llegeix_missatge(int p, int r, int k, int missatge[r]){
     while(r % k != 0){
         // REDIMENSIONAR EL VECTOR SUCCESSIO AMB REALLOC O ALGO AIXI PER AUMENTAR EL TAMANY DEL VECTOR I FICAR ELEMENTS
         r++;
     }
+    llegeixvector(p, r, missatge);
+}
+
+void dividir_missatge(int r, int k, int missatge[r], int paraules[r/k][k]){
+    int l = 0;
     for(int i = 0; i < r/k; i++){
         for(int j = 0; j < k; j++){
             paraules[i][j] = missatge[j+l];

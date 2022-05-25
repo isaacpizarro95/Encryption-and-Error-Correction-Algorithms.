@@ -25,10 +25,17 @@ int discussio_sistemes(int p, int files, int cols, int m[files][cols]);
 int vector_nul(int dim, int vect[]);
 int vector_incompatible(int dim, int vect[]);
 
-// Algorisme de Reed-Solomon
+// Codificació - Algorisme de Reed-Solomon
 int calcul_potencia(int p, int a, int potencia);
 void crea_matriu_vandermonde(int p, int files, int cols, int m[][cols]);
 void codificacio(int p, int k, int paraula[k], int codificat[k], int m[p-1][k]);
 void dividir_missatge(int r, int k, int missatge[r], int paraules[r/k][k]);
+void llegeix_missatge(int p, int r, int k, int missatge[r]);
+
+// Descodificació - Algorisme de Berlekamp-Welch
+
+// Manipulació de fitxers
+void check_valors(char *argument[], int *p, int *k);
+void assignacio_p_k(int *nou_valor, char *argument);
 
 #endif
