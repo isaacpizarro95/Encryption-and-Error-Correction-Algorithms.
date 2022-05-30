@@ -4,20 +4,21 @@
 
 #include "isaac.h"
 
-// Si r no és divisible per k redimensiona amb realloc el vector 'missatge' amb un r on r % k = 0
-int realloc_missatge(int r, int k, int *missatge){
+// Redimensionem el tamany del missatge en cas de que la seva longitud no sigui divisible per k
+int *realloc_missatge(int aux_r, int r, int k, int *missatge){
     int *nou_missatge;
-
-    while(r % k != 0){
-        r++;
-    }
-
+    
     if((nou_missatge = (int *) realloc (missatge, r * sizeof(int))) == NULL){
         printf("[ERROR] Realloc no ha pogut redimensionar l'espai de memòria\n");
         exit(1);        
     };
+
+    for(int i = aux_r; i < r; i++){
+        nou_missatge[i] = 0; 
+    }
+
     missatge = nou_missatge;
-    return r;
+    return missatge;
 }
 
 // Divideix el missatge en paraules(vectors) formant una matriu de paraules

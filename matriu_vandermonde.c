@@ -2,14 +2,15 @@
 // Autor: Isaac Pizarro Contreras
 // NIU: 1636421
 
+#include "isaac.h"
+
 int calcul_potencia(int p, int a, int potencia){
     int a_final = a;
     if(potencia == 0){
         return 1;
     }
-    while(potencia > 1){
+    for(int i = 1; i < potencia; i++){
         a_final = (a_final * a) % p;
-        potencia--;
     }
     a_final = a_final % p;
     return a_final;
