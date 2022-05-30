@@ -4,8 +4,32 @@
 
 #include "isaac.h"
 
+// Retorna la longitud del missatge a llegir
+int len_missatge(FILE *fitxer){
+    int len = 0;
+    int aux = 0;
+    while (!feof(fitxer)){
+        fscanf(fitxer, "%d", &aux);
+        len++;
+    }
+    rewind(fitxer); // Ens coloquem de nou al principi del fitxer
+    return len;
+}
+
+// Llegeix el contingut del fitxer guardant-lo al vector missatge
+void llegeix_missatge(FILE *fitxer, int *missatge, int p){
+    int i = 0;
+    // Guardem els valors en 'missatge'
+    while (!feof(fitxer)){
+        fscanf(fitxer, "%d", &(missatge[i]));
+        missatge[i] = missatge[i] % p;
+        i++;
+    }
+    rewind(fitxer);
+}
+
 // Redimensionem el tamany del missatge en cas de que la seva longitud no sigui divisible per k
-int *realloc_missatge(int aux_r, int r, int k, int *missatge){
+int *realloc_missatge(int aux_r, int r, int *missatge){
     int *nou_missatge;
     
     if((nou_missatge = (int *) realloc (missatge, r * sizeof(int))) == NULL){
@@ -22,13 +46,13 @@ int *realloc_missatge(int aux_r, int r, int k, int *missatge){
 }
 
 // Divideix el missatge en paraules(vectors) formant una matriu de paraules
-void dividir_missatge(int r, int k, int missatge[r], int paraules[r/k][k]){
+void dividir_missatge(int files, int cols, int missatge[], int paraules[files][cols]){
     int l = 0;
-    for(int i = 0; i < r/k; i++){
-        for(int j = 0; j < k; j++){
+    for(int i = 0; i < files; i++){
+        for(int j = 0; j < cols; j++){
             paraules[i][j] = missatge[j+l];
         }
-        l += k;
+        l += cols;
     }
     return;
 }

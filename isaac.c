@@ -8,30 +8,27 @@ int main(int argc, char *argv[]){
     // Valors per defecte de p i k
     int p = 7; 
     int k = p-3;
-    // Si accio = 1 codificará, si val 0, descodificará
-    int accio = -1;
-    FILE *fitxer = NULL;
+    int *apuntador_p = &p;
+    int *apuntador_k = &k;
 
-    // Modifiquem, si és necessari, els valors de p i k a partir dels arguments del main
-    if(argc > 1){
-        int *apuntador_p = &p;
-        int *apuntador_k = &k;
-        accio = arguments(argc, argv, apuntador_p, apuntador_k, fitxer);
+    // Comprovem si existeix l'arxiu de configuració per modificar, si cal, p i k
+    FILE *f_configuracio = fopen("RS-BW.cfg", "r");
+    if(f_configuracio != NULL){
+        llegeix_configuracio(f_configuracio, apuntador_p, apuntador_k);
     }
 
-    // Declarem la matriu de Vandermonde
-    int (*m)[k];
-    if((m = (int (*)[k]) malloc((p-1) * k * sizeof(int))) == NULL){
-        printf("\n[ERROR] Malloc no ha pogut reservar l'espai de memòria\n\n");
-        exit(1);
-    };
-    printf("\nCreem la matriu\n\n");
-    crea_matriu_vandermonde(p, p-1, k, m);
-    imprimeixmatriu(p-1, k, m);
-    printf("\n");
-
-    if(accio == 1) codificar(p, k, fitxer, m);
-    else if(accio ==0) descodificar();
+    // Si accio = 0 codificará, si val 1, descodificará, si val 2 configurará
+    int accio = -1;
+    int *apuntador_accio = &accio;
+    char *nom_fitxer;
+    
+    // Modifiquem, si és necessari, els valors de p i k a partir dels arguments del main, recollim el valor de acció i obtenim el fitxer
+    if(argc > 1){
+        nom_fitxer = arguments(argc, argv, apuntador_p, apuntador_k, apuntador_accio);
+    }
+    if(accio == 0) codificar(p, k, nom_fitxer);
+    else if(accio == 1) descodificar(p, k, nom_fitxer);
+    else if(accio == 2) configura(p, k);
 
     return 0;
 }

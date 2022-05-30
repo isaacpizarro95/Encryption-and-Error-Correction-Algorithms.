@@ -27,20 +27,29 @@ void reduccio_gaussiana(int p, int files, int cols, int v_codificat[files], int 
 int discussio_sistemes(int p, int files, int cols, int v_descodificat[cols-1], int m[files][cols]);
 
 // Codificació
-void codificar(int p, int k, FILE *fitxer, int m[p-1][k]);
-int calcul_potencia(int p, int a, int potencia);
-void crea_matriu_vandermonde(int p, int files, int cols, int m[][cols]);
+void codificar(int p, int k, char *nom_fitxer);
 void codificacio(int p, int r, int k, int paraula[r/k][k], int codificat[r/k][p-1], int m[p-1][k], int missatge_codificat[]);
-void dividir_missatge(int r, int k, int missatge[r], int paraules[r/k][k]);
-int *realloc_missatge(int aux_r, int r, int k, int *missatge);
 
 // Descodificació
-void descodificar();
+void descodificar(int p, int k, char *nom_fitxer);
 void descodificacio(int p, int r, int k, int codificat[r/k][p-1], int descodificat[r/k][k], int m[p-1][k], int missatge_descodificat[]);
 
+// Configuració
+void configura(int p, int k);
+void llegeix_configuracio(FILE *fitxer, int *p, int *k);
+int len_n(int n);
+void custom_itoa(int n, int len, char *nombre);
+
+// Utils codificació-descodificació
+int calcul_potencia(int p, int a, int potencia);
+void crea_matriu_vandermonde(int p, int files, int cols, int m[][cols]);
+void dividir_missatge(int files, int cols, int missatge[], int paraules[files][cols]);
+int *realloc_missatge(int aux_r, int r, int *missatge);
+int len_missatge(FILE *fitxer);
+void llegeix_missatge(FILE *fitxer, int *missatge, int p);
+
 // Manipulació de fitxers
-int arguments(int argc, char *argv[], int *apuntador_p, int *apuntador_k, FILE *fitxer);
+char *arguments(int argc, char *argv[], int *apuntador_p, int *apuntador_k, int *accio);
 void assignacio_p_k(char *argument, int *p, int *k);
-FILE *comprova_fitxer(char *nom, FILE * fitxer);
 
 #endif

@@ -4,11 +4,53 @@
 
 #include "isaac.h"
 
-void descodificar(){
-    printf("\nDescodificant...\n\n");
-    return;
+void descodificar(int p, int k, char *nom_fitxer){
+    // Declarem la matriu de Vandermonde
+    int (*m)[k];
+    if((m = (int (*)[k]) malloc((p-1) * k * sizeof(int))) == NULL){
+        printf("\n[ERROR] Malloc no ha pogut reservar l'espai de memòria\n\n");
+        exit(1);
+    };
+    printf("\nCreem la matriu\n\n");
+    crea_matriu_vandermonde(p, p-1, k, m);
+    imprimeixmatriu(p-1, k, m);
+    
+    // Llegim missatge
+    // Comprovar el tipus de fitxer: .dat, .bin, .txt amb una funció
+    FILE *fitxer;
+    if((fitxer = fopen(nom_fitxer, "r")) == NULL){
+        fprintf(stderr, "\n[ERROR]: El fitxer %s no existeix o no es pot obrir...\n\n", nom_fitxer);
+        exit(1);        
+    }
+
+    int r = len_missatge(fitxer); // Llargada del missatge
+    int *missatge_codificat;
+    if((missatge_codificat = (int *) malloc(r * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);
+    }
+    llegeix_missatge(fitxer, missatge_codificat, p);
+    printf("\nMissatge codificat\n");
+    imprimeixvector(r, missatge_codificat);
+    printf("\n");
+
+    // Si r no és múltiple de n = p-1
+    if(r % (p-1) != 0){
+        int aux_r = r;
+        r = (r + (p-1)) - (r % (p-1));
+        missatge_codificat = realloc_missatge(aux_r, r, missatge_codificat);
+        printf("\n\nMissatge redimensionat per a que 'r' sigui múltiple de 'p-1'\n\n");
+        imprimeixvector(r, missatge_codificat);
+    }
+
+    int (*codificat)[p-1];
+    if((codificat = (int (*)[p-1]) malloc((r/(p-1)) * (p-1) * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);        
+    }
+
     // 5. Descodifiquem el missatge
-    /*printf("\nDescodifiquem el missatge\n\n");
+    printf("\nDescodifiquem el missatge\n\n");
     int (*descodificat)[k];
     if((descodificat = (int (*)[k]) malloc((r/k) * k * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
@@ -20,27 +62,21 @@ void descodificar(){
         exit(1);
     }
 
+    dividir_missatge(r/(p-1), p-1, missatge_codificat, codificat);
+    printf("\nMatriu codificada\n");
+    imprimeixmatriu(r/(p-1), p-1, codificat);
+    printf("\n");
     descodificacio(p, r, k, codificat, descodificat, m, missatge_descodificat);
     printf("\nMissatge descodificat\n");
     imprimeixvector(r, missatge_descodificat);
     printf("\n");
 
-    // Comprovem que el missatge introduit inicialment i el descodificat siguin el mateix
-    char * print_missatge = NULL;
-    for(int i = 0; i < r; i++){
-        if(missatge[i] != missatge_descodificat[i]){
-            print_missatge = "\n\nEl missatge NO coincideix\n\n";
-        }
-    }
-    if (print_missatge == NULL){
-        print_missatge = "\n\nMissatge OK\n\n";
-    }
-    printf("%s", print_missatge);
-    printf("\tp = %d\n\n", p);
-
     // Alliberem la memòria que haviem reservat
+    free(missatge_codificat);
+    free(codificat);
     free(missatge_descodificat);
-    free(descodificat);*/
+    free(descodificat);
+    free(m);
 }
 
 void descodificacio(int p, int r, int k, int codificat[r/k][p-1], int descodificat[r/k][k], int m[p-1][k], int missatge_descodificat[]){
