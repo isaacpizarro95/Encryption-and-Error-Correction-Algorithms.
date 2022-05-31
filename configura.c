@@ -35,8 +35,8 @@ void configura(int p, int k){
 }
 
 void llegeix_configuracio(FILE *fitxer, int *p, int *k){
-    char buffer[300];
-    while(fgets(buffer, 300, fitxer)){
+    char buffer[30];
+    while(fgets(buffer, 30, fitxer)){
         // Utilitzem strtok per "trencar la cadena" al arribar a un salt de línia
         strtok(buffer,"\n");
         assignacio_p_k(buffer, p, k);

@@ -91,7 +91,6 @@ void descodificacio(int p, int files, int cols, int codificat[files][p-1], int d
     for(int i = 0; i < files; i++){
         for(int j = 0; j < cols; j++){
             missatge_descodificat[j+l] = descodificat[i][j];
-            printf("descodificat[%d] = %d\n", j+l, missatge_descodificat[j+l]);
         }
         l += cols;
     }
