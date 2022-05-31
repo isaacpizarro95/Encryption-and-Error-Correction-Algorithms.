@@ -34,6 +34,31 @@ void configura(int p, int k){
     fclose(fitxer);
 }
 
+// Comprovem si existeix l'arxiu de configuració per modificar, si cal, p i k
+// *** PROVOCA L'ERROR 'VIOLACIÓN DE SEGMENTO *** //
+void comprova_configuracio(int *p, int *k){
+    char *nom_fitxer;
+    if((nom_fitxer = (char *) malloc(10 * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);
+    }
+    nom_fitxer = "RS-BW.cfg";
+    nom_fitxer[9] = '\0';
+    if (access(nom_fitxer, F_OK) != 0) {
+        return;
+    }
+
+    FILE *f_configuracio;
+    if((f_configuracio = fopen(nom_fitxer, "r")) == NULL){
+        fprintf(stderr, "\n[ERROR]: El fitxer %s no existeix o no es pot obrir...\n\n", nom_fitxer);
+        exit(1); 
+    } 
+    llegeix_configuracio(f_configuracio, p, k);
+    fclose(f_configuracio);
+    free(nom_fitxer);
+}
+
+// Llegeix l'arxiu de configuració per obtenir els valors de p i k
 void llegeix_configuracio(FILE *fitxer, int *p, int *k){
     char buffer[30];
     while(fgets(buffer, 30, fitxer)){

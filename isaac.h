@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 
 // ******* Aritmètica a Fp ******* //
@@ -64,6 +65,7 @@ void escriure_txt(char *f_input, int *missatge, int mida, char *afegit);
 
 // Configuració
 void configura(int p, int k);
+void comprova_configuracio(int *p, int *k);
 void llegeix_configuracio(FILE *fitxer, int *p, int *k);
 int len_n(int n);
 void custom_itoa(int n, int len, char *nombre);

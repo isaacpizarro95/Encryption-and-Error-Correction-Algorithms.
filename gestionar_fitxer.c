@@ -10,9 +10,11 @@ char *tipus_fitxer(char *nom_fitxer){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
-    for(int i = 0; i < 3; i++){
+    int i;
+    for(i = 0; i < 3; i++){
         tipus[i] = nom_fitxer[(strlen(nom_fitxer)-3) + i];
-    }    
+    }
+    tipus[i] = '\0';
     return tipus;
 }
 
@@ -59,7 +61,6 @@ void longitud_dat(FILE *fitxer, int *apuntador_r){
 
 // Gestiona la lectura del contingut d'un fitxer depenent del tipus
 void gestio_flectura(char *nom_fitxer, FILE *fitxer, int *missatge, int p){
-    int i = 0;
     char *tipus;
     if((tipus = (char *) malloc(3 * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
@@ -74,7 +75,6 @@ void gestio_flectura(char *nom_fitxer, FILE *fitxer, int *missatge, int p){
 
 // Gestiona l'escriptura del missatge en un nou fitxer depenent del tipus
 void gestio_fescriptura(char *f_input, int *missatge, int mida, char *afegit){
-    int i = 0;
     char *tipus;
     if((tipus = (char *) malloc(3 * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");

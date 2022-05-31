@@ -30,7 +30,7 @@ char *nom_foutput(char *f_input, char *afegit){
 void escriure_dat(char *f_input, int *missatge, int mida, char *afegit){
     char *f_output = nom_foutput(f_input, afegit);
     FILE *fitxer;
-    if((fitxer = fopen(f_output, "w+")) == NULL){
+    if((fitxer = fopen(f_output, "w")) == NULL){
         fprintf(stderr, "\n[ERROR]: El fitxer %s no s'ha pogut crear...\n\n", f_output);
         exit(1);
     }
@@ -46,7 +46,7 @@ void escriure_dat(char *f_input, int *missatge, int mida, char *afegit){
 void escriure_bin(char *f_input, int *missatge, char *afegit){
     char *f_output = nom_foutput(f_input, afegit);
     FILE *fitxer;
-    if((fitxer = fopen(f_output, "w+")) == NULL){
+    if((fitxer = fopen(f_output, "wb")) == NULL){
         fprintf(stderr, "\n[ERROR]: El fitxer %s no s'ha pogut crear...\n\n", f_output);
         exit(1);
     }
@@ -58,14 +58,18 @@ void escriure_bin(char *f_input, int *missatge, char *afegit){
 // Escriu el contingut del missatge en un fitxer '.txt'
 void escriure_txt(char *f_input, int *missatge, int mida, char *afegit){
     char *f_output = nom_foutput(f_input, afegit);
+    char txt[mida+1];
     FILE *fitxer;
-    if((fitxer = fopen(f_output, "w+")) == NULL){
+    if((fitxer = fopen(f_output, "w")) == NULL){
         fprintf(stderr, "\n[ERROR]: El fitxer %s no s'ha pogut crear...\n\n", f_output);
         exit(1);
     }
-    for(int i = 0; i < mida; i++){
-        fprintf(fitxer, "%c", (char)missatge[i]); // *** S'HA DE REMIRAR COM S'ESCRIU AMB TXT *** //
+    int i;
+    for(i = 0; i < mida; i++){
+        txt[i] = missatge[i] + '0';
     }
+    txt[i] = '\0';
+    fprintf(fitxer, "%s", txt);
     free(f_output);
     fclose(fitxer);
 }
