@@ -16,22 +16,20 @@ void descodificar(int p, int k, char *nom_fitxer){
     imprimeixmatriu(p-1, k, m);
     
     // Llegim missatge
-    // Comprovar el tipus de fitxer: .dat, .bin, .txt amb una funció
     FILE *fitxer;
-    if((fitxer = fopen(nom_fitxer, "r")) == NULL){
-        fprintf(stderr, "\n[ERROR]: El fitxer %s no existeix o no es pot obrir...\n\n", nom_fitxer);
-        exit(1);        
-    }
+    int r; // Longitud missatge
+    int *apuntador_r = &r;
+    fitxer = gestio_fitxer(nom_fitxer, apuntador_r);
+    printf("r = %d\n", r);
 
     // Guardem el missatge codificat
-    int r = len_missatge(fitxer); // Llargada del missatge
     int *missatge_codificat;
     if((missatge_codificat = (int *) malloc(r * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
     printf("\nMissatge codificat\n");
-    llegeix_missatge(fitxer, missatge_codificat, p);
+    gestio_flectura(nom_fitxer, fitxer, missatge_codificat, p);
     imprimeixvector(r, missatge_codificat);
 
     int (*codificat)[p-1];
@@ -68,7 +66,7 @@ void descodificar(int p, int k, char *nom_fitxer){
     printf("\n");
 
     // Escrivim el missatge descodificat en un nou fitxer
-    escriure_missatge(nom_fitxer, missatge_descodificat, (r/(p-1))*k, "BW.");
+    gestio_fescriptura(nom_fitxer, missatge_descodificat, (r/(p-1))*k, "BW.");
 
     // Alliberem la memòria que haviem reservat
     fclose(fitxer);

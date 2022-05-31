@@ -6,14 +6,15 @@
 
 int main(int argc, char *argv[]){
     // Valors per defecte de p i k
-    int p = 11; 
+    int p = 7; 
     int k = p-3;
     int *apuntador_p = &p;
     int *apuntador_k = &k;
 
     // Comprovem si existeix l'arxiu de configuració per modificar, si cal, p i k
-    FILE *f_configuracio = fopen("RS-BW.cfg", "r");
+    /*FILE *f_configuracio = fopen("RS-BW.cfg", "r");
     if(f_configuracio != NULL) llegeix_configuracio(f_configuracio, apuntador_p, apuntador_k);
+    fclose(f_configuracio);*/
     
     // Si accio = 0 codificará, si val 1, descodificará, si val 2 configurará
     int accio = -1;
@@ -29,7 +30,6 @@ int main(int argc, char *argv[]){
     if(accio == 0) codificar(p, k, nom_fitxer);
     else if(accio == 1) descodificar(p, k, nom_fitxer);
     else if(accio == 2) configura(p, k);
-
-    fclose(f_configuracio);
+    
     return 0;
 }

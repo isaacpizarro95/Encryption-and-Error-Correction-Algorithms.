@@ -56,7 +56,7 @@ void imprimeixvector(int dim, int vect[]){
     for(int i = 0; i < dim; i++){
         printf("%d\t", vect[i]);
     }
-    printf("\n");
+    printf("\n\n");
     return;
 }
 
@@ -67,5 +67,6 @@ void imprimeixmatriu(int files, int cols, int m[][cols]){
         }
         printf("\n");
     }
+    printf("\n");
     return;
 }

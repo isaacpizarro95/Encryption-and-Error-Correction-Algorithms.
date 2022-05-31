@@ -4,21 +4,22 @@
 
 #include "isaac.h"
 
-// Retorna la longitud del missatge a llegir
-int len_missatge(FILE *fitxer){
-    int len = 0;
-    int aux = 0;
-    while (!feof(fitxer)){
-        fscanf(fitxer, "%d", &aux);
-        len++;
+// Llegeix el missatge d'un fitxer bin
+void lectura_bin(FILE *fitxer, int *missatge, int p){
+    int i = 0;
+    while((fread(&missatge[i], sizeof(int), 1, fitxer)) == 1){
+        if(missatge[i] >= p){
+            fprintf(stderr, "\n[Warning]: El fitxer té algún valor >= p. Es reduirà mòdul p\n\n");
+            missatge[i] = missatge[i] % p;
+        }
+        i++;
     }
-    rewind(fitxer); // Ens coloquem de nou al principi del fitxer
-    return len;
 }
 
-// Llegeix el contingut del fitxer guardant-lo al vector missatge
-void llegeix_missatge(FILE *fitxer, int *missatge, int p){
+// Llegeix el missatge d'un fitxer dat
+void lectura_dat(FILE *fitxer, int *missatge, int p){
     int i = 0;
+
     // Guardem els valors en 'missatge'
     while (!feof(fitxer)){
         fscanf(fitxer, "%d", &(missatge[i]));
@@ -29,6 +30,20 @@ void llegeix_missatge(FILE *fitxer, int *missatge, int p){
         i++;
     }
     rewind(fitxer);
+}
+
+// Llegeix el missatge d'un fitxer txt
+void lectura_txt(FILE *fitxer, int *missatge, int p){
+    char c;
+    int i = 0;
+    while((c = fgetc(fitxer)) != EOF){
+        missatge[i] = (int)c;
+        if(missatge[i] >= p){
+            fprintf(stderr, "\n[Warning]: El fitxer té algún valor >= p. Es reduirà mòdul p\n\n");
+            missatge[i] = missatge[i] % p;
+        }
+        i++;
+    }
 }
 
 // Redimensionem el tamany del missatge en cas de que la seva longitud no sigui divisible per k
