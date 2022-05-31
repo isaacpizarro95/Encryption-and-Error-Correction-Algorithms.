@@ -24,6 +24,7 @@ char *arguments(int argc, char *argv[], int *apuntador_p, int *apuntador_k, int 
     return nom_fitxer;
 }
 
+// Assigna nous valors a p i k
 void assignacio_p_k(char *argument, int *p, int *k){
     char aux[strlen(argument)-2];
     int i = 0;
@@ -35,11 +36,7 @@ void assignacio_p_k(char *argument, int *p, int *k){
                 i++;
                 j++;
             }
-            if(primer_test(atoi(aux)) == 1) *p = atoi(aux);
-            else {
-                printf("\n[ERROR] El nombre p ha de ser primer\n\n");
-                exit(1);
-            }
+            *p = atoi(aux);
             return;
         }
         else if(argument[i] == 'k'){
@@ -52,5 +49,21 @@ void assignacio_p_k(char *argument, int *p, int *k){
             return;
         }
         i++;
+    }
+}
+
+// Revisa que p i k tinguin valors correctes
+void check_parametres(int p, int k){
+    if(primer_test(p) == 0){
+        printf("\n[ERROR] El nombre p ha de ser primer\n\n");
+        exit(1);
+    }
+    if(k+3 > p){
+        printf("\n[ERROR] El nombre k ha de ser menor o igual que p-3\n\n");
+        exit(1);                
+    }
+    else if(k <= 1){
+        printf("\n[ERROR] El nombre k ha de ser major que 1\n\n");
+        exit(1);                 
     }
 }

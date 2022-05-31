@@ -11,7 +11,7 @@ void descodificar(int p, int k, char *nom_fitxer){
         printf("\n[ERROR] Malloc no ha pogut reservar l'espai de memòria\n\n");
         exit(1);
     };
-    printf("\nCreem la matriu\n\n");
+    printf("\nCreem la matriu de codificació\n\n");
     crea_matriu_vandermonde(p, p-1, k, m);
     imprimeixmatriu(p-1, k, m);
     
@@ -23,25 +23,16 @@ void descodificar(int p, int k, char *nom_fitxer){
         exit(1);        
     }
 
+    // Guardem el missatge codificat
     int r = len_missatge(fitxer); // Llargada del missatge
     int *missatge_codificat;
     if((missatge_codificat = (int *) malloc(r * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
-    llegeix_missatge(fitxer, missatge_codificat, p);
     printf("\nMissatge codificat\n");
+    llegeix_missatge(fitxer, missatge_codificat, p);
     imprimeixvector(r, missatge_codificat);
-    printf("\n");
-
-    // Si r no és múltiple de n = p-1
-    if(r % (p-1) != 0){
-        int aux_r = r;
-        r = (r + (p-1)) - (r % (p-1));
-        missatge_codificat = realloc_missatge(aux_r, r, missatge_codificat);
-        printf("\n\nMissatge redimensionat per a que 'r' sigui múltiple de 'p-1'\n\n");
-        imprimeixvector(r, missatge_codificat);
-    }
 
     int (*codificat)[p-1];
     if((codificat = (int (*)[p-1]) malloc((r/(p-1)) * (p-1) * sizeof(int))) == NULL){
@@ -49,29 +40,38 @@ void descodificar(int p, int k, char *nom_fitxer){
         exit(1);        
     }
 
-    // 5. Descodifiquem el missatge
-    printf("\nDescodifiquem el missatge\n\n");
-    int (*descodificat)[k];
-    if((descodificat = (int (*)[k]) malloc((r/k) * k * sizeof(int))) == NULL){
-        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
-        exit(1);        
-    }
-    int *missatge_descodificat;
-    if((missatge_descodificat = (int *) malloc(r * sizeof(int))) == NULL){
-        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
-        exit(1);
-    }
-
+    // Dividim en vectors el missatge codificat guardant-lo com a matriu
     dividir_missatge(r/(p-1), p-1, missatge_codificat, codificat);
     printf("\nMatriu codificada\n");
     imprimeixmatriu(r/(p-1), p-1, codificat);
     printf("\n");
-    descodificacio(p, r, k, codificat, descodificat, m, missatge_descodificat);
+
+    // Creem la matriu i el missatge de descodificació
+    int (*descodificat)[k];
+    if((descodificat = (int (*)[k]) malloc((r/(p-1)) * k * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);        
+    }
+    int *missatge_descodificat;
+    if((missatge_descodificat = (int *) malloc(((r/(p-1)) * k) * sizeof(int))) == NULL){
+        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+        exit(1);
+    }
+
+    // A partir de la matriu codificada i la matriu de codificació trobem el missatge codificat
+    printf("\nDescodifiquem el missatge\n\n");
+    descodificacio(p, r/(p-1), k, codificat, descodificat, m, missatge_descodificat);
+    printf("\nMatriu descodificada\n");
+    imprimeixmatriu((r/(p-1)), k, descodificat);
     printf("\nMissatge descodificat\n");
-    imprimeixvector(r, missatge_descodificat);
+    imprimeixvector(((r/(p-1))*k), missatge_descodificat);
     printf("\n");
 
+    // Escrivim el missatge descodificat en un nou fitxer
+    escriure_missatge(nom_fitxer, missatge_descodificat, (r/(p-1))*k, "BW.");
+
     // Alliberem la memòria que haviem reservat
+    fclose(fitxer);
     free(missatge_codificat);
     free(codificat);
     free(missatge_descodificat);
@@ -79,20 +79,21 @@ void descodificar(int p, int k, char *nom_fitxer){
     free(m);
 }
 
-void descodificacio(int p, int r, int k, int codificat[r/k][p-1], int descodificat[r/k][k], int m[p-1][k], int missatge_descodificat[]){
+void descodificacio(int p, int files, int cols, int codificat[files][p-1], int descodificat[files][cols], int m[p-1][cols], int missatge_descodificat[]){
     // Apliquem la reducció Gaussiana
-    for(int i = 0; i < r/k; i++){
-        // k+1 a les columnes per afegir la columna b de la matriu ampliada
-        reduccio_gaussiana(p, p-1, k+1, codificat[i], descodificat[i], m);
+    for(int i = 0; i < files; i++){
+        // cols+1 per afegir la columna b de la matriu ampliada
+        reduccio_gaussiana(p, p-1, cols+1, codificat[i], descodificat[i], m);
         printf("\n");
     }
 
     int l = 0;
-    for(int i = 0; i < r/k; i++){
-        for(int j = 0; j < k; j++){
+    for(int i = 0; i < files; i++){
+        for(int j = 0; j < cols; j++){
             missatge_descodificat[j+l] = descodificat[i][j];
+            printf("descodificat[%d] = %d\n", j+l, missatge_descodificat[j+l]);
         }
-        l += k;
+        l += cols;
     }
     return;
 }

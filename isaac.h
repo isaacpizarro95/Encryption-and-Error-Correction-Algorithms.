@@ -32,7 +32,7 @@ void codificacio(int p, int r, int k, int paraula[r/k][k], int codificat[r/k][p-
 
 // Descodificació
 void descodificar(int p, int k, char *nom_fitxer);
-void descodificacio(int p, int r, int k, int codificat[r/k][p-1], int descodificat[r/k][k], int m[p-1][k], int missatge_descodificat[]);
+void descodificacio(int p, int files, int cols, int codificat[files][p-1], int descodificat[files][cols], int m[p-1][cols], int missatge_descodificat[]);
 
 // Configuració
 void configura(int p, int k);
@@ -45,11 +45,14 @@ int calcul_potencia(int p, int a, int potencia);
 void crea_matriu_vandermonde(int p, int files, int cols, int m[][cols]);
 void dividir_missatge(int files, int cols, int missatge[], int paraules[files][cols]);
 int *realloc_missatge(int aux_r, int r, int *missatge);
-int len_missatge(FILE *fitxer);
-void llegeix_missatge(FILE *fitxer, int *missatge, int p);
 
-// Manipulació de fitxers
+// Manipulació d'arguments i fitxers
 char *arguments(int argc, char *argv[], int *apuntador_p, int *apuntador_k, int *accio);
 void assignacio_p_k(char *argument, int *p, int *k);
+void check_parametres(int p, int k);
+int len_missatge(FILE *fitxer);
+void llegeix_missatge(FILE *fitxer, int *missatge, int p);
+void escriure_missatge(char *f_input, int *missatge, int len_missatge, char *afegit);
+//char *nom_foutput(char *f_input, char *afegit);
 
 #endif

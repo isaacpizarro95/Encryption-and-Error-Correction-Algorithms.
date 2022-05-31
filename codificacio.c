@@ -11,7 +11,7 @@ void codificar(int p, int k, char *nom_fitxer){
         printf("\n[ERROR] Malloc no ha pogut reservar l'espai de memòria\n\n");
         exit(1);
     };
-    printf("\nCreant la matriu...\n\n");
+    printf("\nCreem la matriu de codificació\n\n");
     crea_matriu_vandermonde(p, p-1, k, m);
     imprimeixmatriu(p-1, k, m);
     
@@ -29,10 +29,10 @@ void codificar(int p, int k, char *nom_fitxer){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
-    llegeix_missatge(fitxer, missatge, p);
     printf("\n\nLlegint missatge\n\n");
+    llegeix_missatge(fitxer, missatge, p);
     imprimeixvector(r, missatge);
-
+    
     // Si r no és múltiple de k
     if(r % k != 0){
         int aux_r = r;
@@ -54,7 +54,6 @@ void codificar(int p, int k, char *nom_fitxer){
     imprimeixmatriu(r/k, k, paraules);
     printf("\n");
 
-
     // Codifiquem el missatge
     printf("\n\nCodifiquem el missatge\n\n");
     int (*codificat)[p-1];
@@ -72,7 +71,11 @@ void codificar(int p, int k, char *nom_fitxer){
     printf("\n\nMissatge codificat\n\n");
     imprimeixvector(((r/k)*(p-1)), missatge_codificat);
     printf("\n");
+
+    // Escrivim el missatge codificat en un nou fitxer
+    escriure_missatge(nom_fitxer, missatge_codificat, (r/k)*(p-1), "RS.");
     
+    fclose(fitxer);
     free(paraules);
     free(missatge_codificat);
     free(codificat);
