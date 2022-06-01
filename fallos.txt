@@ -1,0 +1,10 @@
+# FITXER PER A DUBTES I ERRORS A PREGUNTAR #
+
+Dubte RS-BW.cfg
+- Quan comprovo si existeix el fitxer RS-BW.cfg i existeix funciona perfectament. També al crearlo.
+- Pero en la comprovació de si existeix  i no existeix surt l'error "Violación de segmento ('core' generado)
+- Adjuntar imatge
+
+Dubte fitxer.txt
+- Si el fitxer.txt inicial te carácters alfabètics, fitxer.RS.txt també ha de tenir-ne? I en conseqüència fitxer.RS.BW.txt?
+- Jo ara mateix estic guardant en ambdos fitxers caràcters numèrics

@@ -20,14 +20,14 @@ void codificar(int p, int k, char *nom_fitxer){
     int r; // Longitud missatge
     int *apuntador_r = &r;
     fitxer = gestio_fitxer(nom_fitxer, apuntador_r);
-    printf("r = %d\n", r);
 
+    // Guardem el missatge
     int *missatge; 
     if((missatge = (int *) malloc(r * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
-    printf("\n\nLlegint missatge\n\n");
+    printf("\n\nMissatge\n\n");
     gestio_flectura(nom_fitxer, fitxer, missatge, p);
     imprimeixvector(r, missatge);
     
@@ -40,8 +40,8 @@ void codificar(int p, int k, char *nom_fitxer){
         imprimeixvector(r, missatge);
     }
 
-    // Dividim el missatge en paraules
-    printf("\n\nDividim el missatge en paraules\n\n");
+    // Dividim en vectors el missatge guardant-lo com a matriu
+    printf("\n\nDividim el missatge en vectors\n\n");
 
     int (*paraules)[k];
     if((paraules = (int (*)[k]) malloc((r/k) * k * sizeof(int))) == NULL){

@@ -4,31 +4,16 @@
 
 #include "isaac.h"
 
-// Retorna 1 si el vector és nul, és a dir vect = {0, 0, ... , 0} i 0 si no ho és
-int vector_nul(int dim, int vect[]){
-    for(int i = 0; i < dim; i++){
-        if(vect[i] != 0){
-            return 0;
-        }
-    }
-    return 1;
-}
-
-// Comprova si un vector fa que la matriu sigui incompatible. Retorna 1 si és incompatible i 0 si és compatible
-int vector_incompatible(int dim, int vect[]){
-    int compatible = 0;
-    if(vect[dim-1] == 0){
-        return 0;
-    }
-    for(int i = 0; i < dim-1; i++){
-        if(vect[i] != 0){
-            compatible = 1;
-        }
-    }
-    if(compatible == 0){
+int calcul_potencia(int p, int a, int potencia){
+    int a_final = a;
+    if(potencia == 0){
         return 1;
     }
-    return 0;
+    for(int i = 1; i < potencia; i++){
+        a_final = (a_final * a) % p;
+    }
+    a_final = a_final % p;
+    return a_final;
 }
 
 void llegeixvector(int p, int dim, int vect[]){
@@ -40,7 +25,6 @@ void llegeixvector(int p, int dim, int vect[]){
     return;
 }
 
-// Cada valor que es llegeix de la matriu s'ha de reduir mòdul p
 void llegeixmatriu(int p, int files, int cols, int m[][cols]){
     for(int i = 0; i < files; i++) {
         for(int j = 0; j < cols; j++) {

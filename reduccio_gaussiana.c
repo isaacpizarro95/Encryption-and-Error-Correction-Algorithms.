@@ -47,8 +47,13 @@ void reduccio_gaussiana(int p, int files, int cols, int v_codificat[files], int 
     }
     imprimeixmatriu(files, cols, m_ampliada);
 
-    // Discussió del sistema
-    discussio_sistemes(p, files, cols, v_descodificat, m_ampliada);
+    // Discussió del sistema retorna 1 si el sistema és compatible determinat i 0 si és incompatible
+    int compatible;
+    compatible = discussio_sistemes(p, files, cols, v_descodificat, m_ampliada);
+    if(compatible == 0){
+        // Si el sistema és incompatible apliquem l'algorisme de correcció d'errors de Berlekamp-Welch
+        berlekamp_welch(p, files, v_codificat);
+    }
     printf("\n------------------------------------------------------------------------------------------------------------------------\n\n");
     free(m_ampliada);
 }

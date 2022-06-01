@@ -20,7 +20,6 @@ void descodificar(int p, int k, char *nom_fitxer){
     int r; // Longitud missatge
     int *apuntador_r = &r;
     fitxer = gestio_fitxer(nom_fitxer, apuntador_r);
-    printf("r = %d\n", r);
 
     // Guardem el missatge codificat
     int *missatge_codificat;
@@ -92,15 +91,5 @@ void descodificacio(int p, int files, int cols, int codificat[files][p-1], int d
         }
         l += cols;
     }
-    return;
-}
-
-void descodificacio_erros(int p, int k, int errors, int v_erroni[]){
-    if (errors > ((p-1) - k)){
-        printf("[ERROR] Massa errors, no es poden corregir");
-        exit(1);
-    }
-    //int errors_maxims = ((p-1)-k)/2;
-
     return;
 }
