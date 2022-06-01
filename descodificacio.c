@@ -77,10 +77,37 @@ void descodificar(int p, int k, char *nom_fitxer){
 }
 
 void descodificacio(int p, int files, int cols, int codificat[files][p-1], int descodificat[files][cols], int m[p-1][cols], int missatge_descodificat[]){
+    int compatible;
+    
     // Apliquem la reducció Gaussiana
     for(int i = 0; i < files; i++){
         // cols+1 per afegir la columna b de la matriu ampliada
-        reduccio_gaussiana(p, p-1, cols+1, codificat[i], descodificat[i], m);
+        // Per cada vector declarem una nova matriu
+        int (*m_ampliada)[cols+1];
+        if((m_ampliada = (int (*)[cols+1]) malloc((p-1) * (cols+1) * sizeof(int))) == NULL){
+            printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
+            exit(1);
+        };
+        for(int j = 0; j < (p-1); j++){
+            for(int k = 0; k < cols; k++){
+                m_ampliada[j][k] = m[j][k];
+            }
+            m_ampliada[j][cols] = codificat[i][j];
+        }
+        reduccio_gaussiana(p, p-1, cols+1, m_ampliada);
+        // Discussió del sistema retorna 1 si el sistema és compatible determinat i 0 si és incompatible
+        
+        compatible = discussio_sistemes(p, p-1, cols+1, descodificat[i], m_ampliada);
+        printf("\n------------------------------------------------------------------------------------------------------------------------\n\n");
+        free(m_ampliada);
+        if(compatible == 0){
+            // Si el sistema és incompatible apliquem l'algorisme de correcció d'errors de Berlekamp-Welch
+            berlekamp_welch(p, p-1, cols, codificat[i]);
+        }
+        // Sistema compatible indeterminat
+        if(compatible == 2){
+            exit(1);
+        }
         printf("\n");
     }
 

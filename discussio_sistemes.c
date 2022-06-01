@@ -4,7 +4,7 @@
 
 #include "isaac.h"
 
-int discussio_sistemes(int p, int files, int cols, int v_descodificat[cols-1], int m[files][cols]){
+int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols]){
     int determinat = 1; // 1 si és determinat i 0 si no ho és
     int files_nules = 0;
 
@@ -21,10 +21,11 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[cols-1], i
 
     if(determinat == 0){
         printf("\nEl sistema és compatible indeterminat\n\n");
-        exit(1);
+        return 2;
     }
     else {
         printf("\nEl sistema és compatible determinat\n\n");
+        
         int b, invers;
         int n_nuls = 0;
 
@@ -75,21 +76,3 @@ int vector_incompatible(int dim, int vect[]){
     }
     return incompatible;
 }
-
-/*
-int main(){
-    int p = 5;
-    int cols = 3;
-    
-    int m_ampliada[p-1][cols];
-    int v[cols-1];
-    llegeixmatriu(p, p-1, cols, m_ampliada);
-    printf("\n");
-    imprimeixmatriu(p-1, cols, m_ampliada);
-    discussio_sistemes(p, p-1, cols, v, m_ampliada);
-    printf("\nResultat icògnites:\n");
-    imprimeixvector(cols-1, v);
-
-    return 0;
-}
-*/

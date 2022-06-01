@@ -23,8 +23,8 @@ void suma_multiple(int multiple, int p, int fila_inici, int fila_desti, int cols
 void matriuxvector(int p, int files, int cols, int vect[], int resultat[], int mat[][cols]);
 
 // Reducció gaussiana i discussió de sistemes
-void reduccio_gaussiana(int p, int files, int cols, int v_codificat[files], int v_descodificat[cols-1], int m[files][cols-1]);
-int discussio_sistemes(int p, int files, int cols, int v_descodificat[cols-1], int m[files][cols]);
+void reduccio_gaussiana(int p, int files, int cols, int m_ampliada[files][cols]);
+int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols]);
 int vector_nul(int dim, int vect[]);
 int vector_incompatible(int dim, int vect[]);
 
@@ -43,6 +43,8 @@ int *realloc_missatge(int aux_r, int r, int *missatge);
 // Berlekamp-Welch
 void berlekamp_welch(int p, int files, int cols, int v_erroni[files]);
 void crea_matriu_bw(int p, int files, int cols, int e, int v_erroni[files], int m_bw[files][cols]);
+void sistema_bw(int p, int e, int cols, int bw_descodificat[]);
+void crea_ms_bw(int p, int files, int cols, int bw_descodificat[files], int ms_bw[files][cols]);
 
 // ******* Manipulació arguments i fitxers ******* //
 // Arguments

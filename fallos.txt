@@ -8,3 +8,9 @@ Dubte RS-BW.cfg
 Dubte fitxer.txt
 - Si el fitxer.txt inicial te carácters alfabètics, fitxer.RS.txt també ha de tenir-ne? I en conseqüència fitxer.RS.BW.txt?
 - Jo ara mateix estic guardant en ambdos fitxers caràcters numèrics
+
+Dubte matriu BW
+- Els coeficients que apareixen en negatiu al pdf han de ser negatius? O son p - a, sent d'aquesta forma positius
+
+Autodubte
+- Vigilar amb els intercanvis de files. Abans estaven inactius i funcionava bé.
