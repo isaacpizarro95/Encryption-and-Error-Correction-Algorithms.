@@ -41,9 +41,9 @@ void dividir_missatge(int files, int cols, int missatge[], int paraules[files][c
 int *realloc_missatge(int aux_r, int r, int *missatge);
 
 // Berlekamp-Welch
-void berlekamp_welch(int p, int files, int cols, int v_erroni[files]);
+void berlekamp_welch(int p, int files, int cols, int v_erroni[files], int descodificat[]);
 void crea_matriu_bw(int p, int files, int cols, int e, int v_erroni[files], int m_bw[files][cols]);
-void sistema_bw(int p, int e, int cols, int bw_incognites[]);
+void sistema_bw(int p, int e, int cols, int bw_incognites[], int descodificat[]);
 void crea_ms_bw(int p, int files, int cols, int bw_incognites[files], int ms_bw[files][cols]);
 
 // ******* Manipulació arguments i fitxers ******* //
@@ -66,9 +66,9 @@ void lectura_txt(FILE *fitxer, int *missatge, int p);
 
 // Escriptura fitxers
 void gestio_fescriptura(char *f_input, int *missatge, int mida, char *afegit);
-void escriure_bin(char *f_input, int *missatge, char *afegit);
 void escriure_dat(char *f_input, int *missatge, int mida, char *afegit);
-void escriure_txt(char *f_input, int *missatge, int mida, char *afegit);
+void escriure_bin(char *f_input, int *missatge, char *afegit);
+void escriure_txt(char *f_input, int *missatge, char *afegit);
 
 // Configuració
 void configura(int p, int k);

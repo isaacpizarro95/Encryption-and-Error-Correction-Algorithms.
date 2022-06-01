@@ -100,7 +100,7 @@ void descodificacio(int p, int files, int cols, int codificat[files][p-1], int d
         compatible = discussio_sistemes(p, p-1, cols+1, descodificat[i], m_ampliada);
         if(compatible == 0){
             // Si el sistema és incompatible apliquem l'algorisme de correcció d'errors de Berlekamp-Welch
-            berlekamp_welch(p, p-1, cols, codificat[i]);
+            berlekamp_welch(p, p-1, cols, codificat[i], descodificat[i]);
         }
         // Sistema compatible indeterminat
         if(compatible == 2){

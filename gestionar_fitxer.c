@@ -4,6 +4,7 @@
 
 #include "isaac.h"
 
+// Retorna un char * amb el nom del tipus de fitxer= 'dat', 'bin', 'txt'
 char *tipus_fitxer(char *nom_fitxer){
     char *tipus;
     if((tipus = (char *) malloc(3 * sizeof(char))) == NULL){
@@ -18,6 +19,7 @@ char *tipus_fitxer(char *nom_fitxer){
     return tipus;
 }
 
+// Obté el fitxer i la llargada d'aquest
 FILE *gestio_fitxer(char *nom_fitxer, int *apuntador_r){
     FILE *fitxer;
     char *tipus;
@@ -83,6 +85,6 @@ void gestio_fescriptura(char *f_input, int *missatge, int mida, char *afegit){
     tipus = tipus_fitxer(f_input);
     if(strcmp(tipus, "bin") == 0) escriure_bin(f_input, missatge, afegit);
     else if(strcmp(tipus, "dat") == 0) escriure_dat(f_input, missatge, mida, afegit);
-    else if(strcmp(tipus, "txt") == 0) escriure_txt(f_input, missatge, mida, afegit);
+    else if(strcmp(tipus, "txt") == 0) escriure_txt(f_input, missatge, afegit);
     free(tipus);
 }

@@ -4,6 +4,7 @@
 
 #include "isaac.h"
 
+// Discuteix un sistema d'equacions lineals
 int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols]){
     int determinat = 1; // 1 si és determinat i 0 si no ho és
     int files_nules = 0;
@@ -17,8 +18,8 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[f
             return 0;
         }
     }
+    // Si rang(m) = rang(m_ampliada) != nombre d'incògnites serà compatible indeterminat
     if((files - files_nules) != cols-1) determinat = 0;
-
     if(determinat == 0){
         printf("\nEl sistema és compatible indeterminat\n\n");
         return 2;
@@ -27,7 +28,7 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[f
         printf("\nEl sistema és compatible determinat\n\n");
         
         int b, invers;
-        int n_nuls = 0;
+        int n_nuls = 0; // Nombre de files nul·les
 
         // Calculem el valor de les incògnites
         for(int i = 0; i < files; i++){
