@@ -4,18 +4,6 @@
 
 #include "isaac.h"
 
-int calcul_potencia(int p, int a, int potencia){
-    int a_final = a;
-    if(potencia == 0){
-        return 1;
-    }
-    for(int i = 1; i < potencia; i++){
-        a_final = (a_final * a) % p;
-    }
-    a_final = a_final % p;
-    return a_final;
-}
-
 void llegeixvector(int p, int dim, int vect[]){
     for(int i = 0; i < dim; i++){
         printf("v(%d) = ", i + 1);

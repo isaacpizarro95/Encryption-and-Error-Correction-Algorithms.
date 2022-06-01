@@ -5,7 +5,6 @@
 #include "isaac.h"
 
 int discussio_sistemes(int p, int files, int cols, int v_descodificat[cols-1], int m[files][cols]){
-    //int compatible = 1; // 1 si és compatible i 0 si no ho és
     int determinat = 1; // 1 si és determinat i 0 si no ho és
     int files_nules = 0;
 
@@ -77,7 +76,7 @@ int vector_incompatible(int dim, int vect[]){
     return incompatible;
 }
 
-
+/*
 int main(){
     int p = 5;
     int cols = 3;
@@ -93,3 +92,4 @@ int main(){
 
     return 0;
 }
+*/

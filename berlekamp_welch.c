@@ -31,22 +31,15 @@ void crea_matriu_bw(int p, int files, int cols, int e, int v_erroni[files], int 
         }
     }
 }
-
+/*
 int main(){
     int p = 11;
     int cols = 5;
     int v[p-1];
     llegeixvector(p, p-1, v);
     imprimeixvector(p-1, v);
-    //int m_ampliada[p-1][cols];
     
-    /*llegeixmatriu(p, p-1, cols, m_ampliada);
-    printf("\n");
-    imprimeixmatriu(p-1, cols, m_ampliada);
-    discussio_sistemes(p, p-1, cols, v, m_ampliada);
-    printf("\nResultat icògnites:\n");
-    imprimeixvector(cols-1, v);*/
     berlekamp_welch(p, p-1, cols, v);
 
     return 0;
-}
+}*/
