@@ -39,8 +39,9 @@ void configura(int p, int k){
 void comprova_configuracio(int *p, int *k){
     FILE *f_configuracio;
     if((f_configuracio = fopen("RS-BW.cfg", "r")) == NULL){
-        fprintf(stderr, "\n[ERROR]: El fitxer %s no existeix o no es pot obrir...\n\n", "RS-BW.cfg");
-        exit(1); 
+        //fprintf(stderr, "\n[ERROR]: El fitxer %s no existeix o no es pot obrir...\n\n", "RS-BW.cfg");
+        //exit(1);
+        return; // Fem return perque no volem que el programa s'acabi si no existeix el fitxer, només és una comprovació
     } 
     llegeix_configuracio(f_configuracio, p, k);
     fclose(f_configuracio);

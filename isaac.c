@@ -20,10 +20,8 @@ int main(int argc, char *argv[]){
     char *nom_fitxer;
     
     // Modifiquem, si és necessari, els valors de p i k a partir dels arguments del main, recollim el valor de acció i obtenim el fitxer
-    if(argc > 1){
-        nom_fitxer = arguments(argc, argv, apuntador_p, apuntador_k, apuntador_accio);
-        check_parametres(p, k);
-    }
+    if(argc > 1) nom_fitxer = arguments(argc, argv, apuntador_p, apuntador_k, apuntador_accio);
+    check_parametres(p, k);
 
     if(accio == 0) codificar(p, k, nom_fitxer);
     else if(accio == 1) descodificar(p, k, nom_fitxer);

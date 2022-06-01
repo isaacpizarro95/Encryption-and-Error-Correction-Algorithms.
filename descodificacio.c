@@ -95,11 +95,9 @@ void descodificacio(int p, int files, int cols, int codificat[files][p-1], int d
             m_ampliada[j][cols] = codificat[i][j];
         }
         reduccio_gaussiana(p, p-1, cols+1, m_ampliada);
-        // Discussió del sistema retorna 1 si el sistema és compatible determinat i 0 si és incompatible
         
+        // Discussió del sistema retorna 1 si el sistema és compatible determinat i 0 si és incompatible
         compatible = discussio_sistemes(p, p-1, cols+1, descodificat[i], m_ampliada);
-        printf("\n------------------------------------------------------------------------------------------------------------------------\n\n");
-        free(m_ampliada);
         if(compatible == 0){
             // Si el sistema és incompatible apliquem l'algorisme de correcció d'errors de Berlekamp-Welch
             berlekamp_welch(p, p-1, cols, codificat[i]);
@@ -108,7 +106,9 @@ void descodificacio(int p, int files, int cols, int codificat[files][p-1], int d
         if(compatible == 2){
             exit(1);
         }
-        printf("\n");
+        free(m_ampliada);
+        
+        printf("\n------------------------------------------------------------------------------------------------------------------------\n\n");
     }
 
     int l = 0;

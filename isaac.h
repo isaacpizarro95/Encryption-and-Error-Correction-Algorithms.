@@ -43,8 +43,8 @@ int *realloc_missatge(int aux_r, int r, int *missatge);
 // Berlekamp-Welch
 void berlekamp_welch(int p, int files, int cols, int v_erroni[files]);
 void crea_matriu_bw(int p, int files, int cols, int e, int v_erroni[files], int m_bw[files][cols]);
-void sistema_bw(int p, int e, int cols, int bw_descodificat[]);
-void crea_ms_bw(int p, int files, int cols, int bw_descodificat[files], int ms_bw[files][cols]);
+void sistema_bw(int p, int e, int cols, int bw_incognites[]);
+void crea_ms_bw(int p, int files, int cols, int bw_incognites[files], int ms_bw[files][cols]);
 
 // ******* Manipulació arguments i fitxers ******* //
 // Arguments
