@@ -36,6 +36,10 @@ FILE *gestio_fitxer(char *nom_fitxer, int *apuntador_r){
             exit(1); 
         }
     }
+    else {
+        fprintf(stderr, "\n[ERROR]: L'extensió de %s no és correcta. Utilitza .dat, .bin o .txt.\n\n", nom_fitxer);
+        exit(1); 
+    }
 
     // Longitud fitxer    
     len_fitxer(fitxer, tipus, apuntador_r);

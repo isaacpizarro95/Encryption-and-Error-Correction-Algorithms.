@@ -41,7 +41,10 @@ void lectura_txt(FILE *fitxer, int *missatge, int p){
     char c;
     int i = 0;
     int warning = 0;
-
+    if(p < 257){
+        fprintf(stderr, "\n[ERROR] Si el fitxer és del tipus .txt p ha de ser major o igual que 257\n\n");
+        exit(1);
+    }
     while((c = fgetc(fitxer)) != EOF){
         missatge[i] = (int)c;
         if(missatge[i] >= p){
