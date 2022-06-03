@@ -24,7 +24,7 @@ void matriuxvector(int p, int files, int cols, int vect[], int resultat[], int m
 
 // Reducció gaussiana i discussió de sistemes
 void reduccio_gaussiana(int p, int files, int cols, int m_ampliada[files][cols]);
-int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols], int bw_algorisme);
+int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols], int e);
 int vector_nul(int dim, int vect[]);
 int vector_incompatible(int dim, int vect[]);
 
@@ -56,7 +56,7 @@ void check_parametres(int p, int k);
 char *nom_foutput(char *f_input, char *afegit);
 FILE *gestio_fitxer(char *nom_fitxer, int *apuntador_r);
 char *tipus_fitxer(char *nom_fitxer);
-void longitud_dat(FILE *fitxer, int *apuntador_r);
+void len_fitxer(FILE *fitxer, char *tipus, int *apuntador_r);
 
 // Lectura fitxers
 void gestio_flectura(char *nom_fitxer, FILE *fitxer, int *missatge, int p);
@@ -65,10 +65,10 @@ void lectura_dat(FILE *fitxer, int *missatge, int p);
 void lectura_txt(FILE *fitxer, int *missatge, int p);
 
 // Escriptura fitxers
-void gestio_fescriptura(char *f_input, int *missatge, int mida, char *afegit);
-void escriure_dat(char *f_input, int *missatge, int mida, char *afegit);
-void escriure_bin(char *f_input, int *missatge, char *afegit);
-void escriure_txt(char *f_input, int *missatge, char *afegit);
+void gestio_fescriptura(char *f_input, int *missatge, int mida, char *afegit, int cols);
+void escriure_dat(char *f_input, int *missatge, int mida, char *afegit, int cols);
+void escriure_bin(char *f_input, int *missatge, int mida, char *afegit, int cols);
+void escriure_txt(char *f_input, int *missatge, int mida, char *afegit, int cols);
 
 // Configuració
 void configura(int p, int k);

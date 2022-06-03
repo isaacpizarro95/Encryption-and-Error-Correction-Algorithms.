@@ -75,7 +75,7 @@ void sistema_bw(int p, int e, int cols, int bw_incognites[], int descodificat[])
     };
     crea_ms_bw(p, e, cols-e-1, cols-2*e-1, bw_incognites, ms_bw);
     
-    compatible = discussio_sistemes(p, cols-e-1, cols-2*e, descodificat, ms_bw, 1);
+    compatible = discussio_sistemes(p, cols-e-1, cols-2*e, descodificat, ms_bw, e);
     if(compatible == 0){
         printf("Error no corregible\n\n");
         exit(1);

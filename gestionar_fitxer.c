@@ -37,27 +37,26 @@ FILE *gestio_fitxer(char *nom_fitxer, int *apuntador_r){
         }
     }
 
-    // Longitud fitxer
-    if(strcmp(tipus, "bin") == 0 || strcmp(tipus, "txt") == 0){
-        fseek(fitxer, 0, SEEK_END);
-        if(strcmp(tipus, "bin") == 0) *apuntador_r = ftell(fitxer)/4; // Dividim entre 4 perque char ocupa 1 byte i int ocupa 4 bytes
-        else *apuntador_r = ftell(fitxer);
-        fseek(fitxer, 0, SEEK_SET);
-    }
-    else longitud_dat(fitxer, apuntador_r);
+    // Longitud fitxer    
+    len_fitxer(fitxer, tipus, apuntador_r);
     free(tipus);
     return fitxer;
 }
 
-// Retorna la longitud del missatge a llegir
-void longitud_dat(FILE *fitxer, int *apuntador_r){
+// Retorna la longitud del missatge.dat a llegir
+void len_fitxer(FILE *fitxer, char *tipus, int *apuntador_r){
     int aux = 0;
-    int longitud = 0;
-    while (!feof(fitxer)){
-        fscanf(fitxer, "%d", &aux);
-        longitud++;
+    int len = 0;
+    if(strcmp(tipus, "dat") == 0){
+        while (!feof(fitxer)){
+            fscanf(fitxer, "%d", &aux);
+            len++;
+        }
     }
-    *apuntador_r = longitud;
+    else if(strcmp(tipus, "txt") == 0) while((fread(&aux, sizeof(char), 1, fitxer)) == 1) len++;
+    else while((fread(&aux, sizeof(int), 1, fitxer)) == 1) len++;
+
+    *apuntador_r = len;
     rewind(fitxer); // Ens coloquem de nou al principi del fitxer
 }
 
@@ -76,15 +75,15 @@ void gestio_flectura(char *nom_fitxer, FILE *fitxer, int *missatge, int p){
 }
 
 // Gestiona l'escriptura del missatge en un nou fitxer depenent del tipus
-void gestio_fescriptura(char *f_input, int *missatge, int mida, char *afegit){
+void gestio_fescriptura(char *f_input, int *missatge, int mida, char *afegit, int cols){
     char *tipus;
     if((tipus = (char *) malloc(3 * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
     tipus = tipus_fitxer(f_input);
-    if(strcmp(tipus, "bin") == 0) escriure_bin(f_input, missatge, afegit);
-    else if(strcmp(tipus, "dat") == 0) escriure_dat(f_input, missatge, mida, afegit);
-    else if(strcmp(tipus, "txt") == 0) escriure_txt(f_input, missatge, afegit);
+    if(strcmp(tipus, "bin") == 0) escriure_bin(f_input, missatge, mida, afegit, cols);
+    else if(strcmp(tipus, "dat") == 0) escriure_dat(f_input, missatge, mida, afegit, cols);
+    else if(strcmp(tipus, "txt") == 0) escriure_txt(f_input, missatge, mida, afegit, cols);
     free(tipus);
 }

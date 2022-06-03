@@ -65,7 +65,7 @@ void descodificar(int p, int k, char *nom_fitxer){
     printf("\n");
 
     // Escrivim el missatge descodificat en un nou fitxer
-    gestio_fescriptura(nom_fitxer, missatge_descodificat, (r/(p-1))*k, "BW.");
+    gestio_fescriptura(nom_fitxer, missatge_descodificat, (r/(p-1))*k, "BW.", k);
 
     // Alliberem la memòria que haviem reservat
     fclose(fitxer);

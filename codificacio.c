@@ -71,7 +71,7 @@ void codificar(int p, int k, char *nom_fitxer){
     printf("\n");
 
     // Escrivim el missatge codificat en un nou fitxer
-    gestio_fescriptura(nom_fitxer, missatge_codificat, (r/k)*(p-1), "RS.");
+    gestio_fescriptura(nom_fitxer, missatge_codificat, (r/k)*(p-1), "RS.", p-1);
     
     fclose(fitxer);
     free(paraules);

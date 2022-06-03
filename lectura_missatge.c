@@ -9,7 +9,6 @@ void lectura_bin(FILE *fitxer, int *missatge, int p){
     int i = 0;
     int warning = 0;
     while((fread(&missatge[i], sizeof(int), 1, fitxer)) == 1){
-        printf("missatge[%d] = %d\n", i, missatge[i]);
         if(missatge[i] >= p){
             warning = 1;
             missatge[i] = missatge[i] % p;

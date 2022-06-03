@@ -5,7 +5,7 @@
 #include "isaac.h"
 
 // Discuteix un sistema d'equacions lineals
-int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols], int bw_algorisme){
+int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols], int e){
     int determinat = 1; // 1 si és determinat i 0 si no ho és
     int files_nules = 0;
 
@@ -19,7 +19,7 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[f
         }
     }
     // Si rang(m) = rang(m_ampliada) != nombre d'incògnites serà compatible indeterminat
-    if((files - files_nules) != cols-1 && bw_algorisme == 0) determinat = 0; 
+    if((files - files_nules) != cols-1 && e == 0) determinat = 0; 
     if(determinat == 0){
         printf("\nEl sistema és compatible indeterminat\n\n");
         return 2;
@@ -31,7 +31,8 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[f
         int n_nuls = 0; // Nombre de files nul·les
 
         // Calculem el valor de les incògnites
-        for(int i = 0; i < files; i++){
+        // Restem e perque les mides de les matrius de solució de BW estan modulades per e
+        for(int i = 0; i < files-e; i++){
             // Si hi ha alguna fila nula al final del sistema la ignorem
             if(vector_nul(cols, m[files-1-i]) == 1){
                 n_nuls++;
@@ -47,7 +48,6 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[f
             v_descodificat[cols-2-i+n_nuls] = (b * invers) % p;  
         }
     }
-
     return 1;
 }
 

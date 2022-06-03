@@ -6,8 +6,8 @@
 
 // La funció retorna 1 si el nombre és primer o 0 si no ho és
 int primer_test(int p){
-    if (p <= 1) {
-        printf("\n[ERROR] El nombre p ha de ser major o igual a 2\n\n");
+    if (p < 3) {
+        printf("\n[ERROR] El nombre p ha de ser major que 3\n\n");
         return 0;
     }
 
