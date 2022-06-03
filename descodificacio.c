@@ -27,8 +27,8 @@ void descodificar(int p, int k, char *nom_fitxer){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
-    printf("\nMissatge codificat\n");
     gestio_flectura(nom_fitxer, fitxer, missatge_codificat, p);
+    printf("\nMissatge codificat\n");
     imprimeixvector(r, missatge_codificat);
 
     int (*codificat)[p-1];
