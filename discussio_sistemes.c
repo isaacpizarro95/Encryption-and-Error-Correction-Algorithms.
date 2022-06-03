@@ -5,7 +5,7 @@
 #include "isaac.h"
 
 // Discuteix un sistema d'equacions lineals
-int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols]){
+int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols], int bw_algorisme){
     int determinat = 1; // 1 si és determinat i 0 si no ho és
     int files_nules = 0;
 
@@ -19,8 +19,7 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[f
         }
     }
     // Si rang(m) = rang(m_ampliada) != nombre d'incògnites serà compatible indeterminat
-    if((files - files_nules) != cols && files == cols) determinat = 0; // cas quan la m_ampliada es quadrada
-    if((files - files_nules) != cols-1 && files != cols) determinat = 0; 
+    if((files - files_nules) != cols-1 && bw_algorisme == 0) determinat = 0; 
     if(determinat == 0){
         printf("\nEl sistema és compatible indeterminat\n\n");
         return 2;

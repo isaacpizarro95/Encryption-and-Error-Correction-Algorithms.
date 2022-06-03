@@ -97,7 +97,7 @@ void descodificacio(int p, int files, int cols, int codificat[files][p-1], int d
         reduccio_gaussiana(p, p-1, cols+1, m_ampliada);
         
         // Discussió del sistema retorna 1 si el sistema és compatible determinat i 0 si és incompatible
-        compatible = discussio_sistemes(p, p-1, cols+1, descodificat[i], m_ampliada);
+        compatible = discussio_sistemes(p, p-1, cols+1, descodificat[i], m_ampliada, 0);
         if(compatible == 0){
             // Si el sistema és incompatible apliquem l'algorisme de correcció d'errors de Berlekamp-Welch
             berlekamp_welch(p, p-1, cols, codificat[i], descodificat[i]);

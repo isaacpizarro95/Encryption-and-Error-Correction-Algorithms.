@@ -24,7 +24,7 @@ void matriuxvector(int p, int files, int cols, int vect[], int resultat[], int m
 
 // Reducció gaussiana i discussió de sistemes
 void reduccio_gaussiana(int p, int files, int cols, int m_ampliada[files][cols]);
-int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols]);
+int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[files][cols], int bw_algorisme);
 int vector_nul(int dim, int vect[]);
 int vector_incompatible(int dim, int vect[]);
 

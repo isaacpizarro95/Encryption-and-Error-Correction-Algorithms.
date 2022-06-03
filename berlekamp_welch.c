@@ -30,7 +30,7 @@ void berlekamp_welch(int p, int files, int cols, int v_erroni[files], int descod
 
         // Resolem el sistema d'equacions
         reduccio_gaussiana(p, files, 2*e+cols+1, m_bw);
-        compatible = discussio_sistemes(p, p-1, 2*e+cols+1, bw_incognites, m_bw);
+        compatible = discussio_sistemes(p, p-1, 2*e+cols+1, bw_incognites, m_bw, 0);
         if(compatible == 0){
             printf("Error no corregible\n\n");
             exit(1);
@@ -58,7 +58,7 @@ void crea_matriu_bw(int p, int files, int cols, int e, int v_erroni[files], int 
             m_bw[i][j] = (p-((calcul_potencia(p, a_primitiu, i*k)) % p))*(v_erroni[i]) % p;
             k++;
         }
-        m_bw[i][cols-1] = ((calcul_potencia(p, a_primitiu, i*cols-1) % p) * v_erroni[i]) % p;
+        m_bw[i][cols-1] = ((calcul_potencia(p, a_primitiu, i*e) % p) * v_erroni[i]) % p;
     }
     printf("\n");
 }
@@ -75,14 +75,13 @@ void sistema_bw(int p, int e, int cols, int bw_incognites[], int descodificat[])
     };
     crea_ms_bw(p, e, cols-e-1, cols-2*e-1, bw_incognites, ms_bw);
     
-    compatible = discussio_sistemes(p, cols-e-1, cols-2*e, descodificat, ms_bw);
+    compatible = discussio_sistemes(p, cols-e-1, cols-2*e, descodificat, ms_bw, 1);
     if(compatible == 0){
         printf("Error no corregible\n\n");
         exit(1);
     }
     if(compatible == 1) {
         printf("L'algorisme de Berlekamp-Welch ha corregit amb èxit els errors i el vector ara descodificat és:\n\n");
-        imprimeixvector(cols-e-2, descodificat);
     }
     free(ms_bw);
 }
@@ -98,7 +97,7 @@ void crea_ms_bw(int p, int e, int files, int cols, int bw_incognites[], int ms_b
             }
         }   
         for(i = 0; i < e; i++){
-            ms_bw[i+j][j] = bw_incognites[2*e + cols + i - 1];
+            ms_bw[i+j][j] = bw_incognites[e + cols + i];
         }
 
         ms_bw[i+j][j] = 1;
