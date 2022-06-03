@@ -42,8 +42,6 @@ void berlekamp_welch(int p, int files, int cols, int v_erroni[files], int descod
         if(compatible == 2) e -= 1;
         free(m_bw);
         free(bw_incognites);
-
-        printf("\n------------------------------------------------------------------------------------------------------------------------\n\n");
     }
 }
 
@@ -55,11 +53,14 @@ void crea_matriu_bw(int p, int files, int cols, int e, int v_erroni[files], int 
         for(j = 0; j < cols-e-1; j++) {
             m_bw[i][j] = calcul_potencia(p, a_primitiu, i*j);
         }
+        int k = 0;
         for(j = cols-e-1; j < cols-1; j++){
-            m_bw[i][j] = (p-((calcul_potencia(p, a_primitiu, i*(j-cols-e-1))) % p))*(v_erroni[i]) % p;
+            m_bw[i][j] = (p-((calcul_potencia(p, a_primitiu, i*k)) % p))*(v_erroni[i]) % p;
+            k++;
         }
-        m_bw[i][cols-1] = ((calcul_potencia(p, a_primitiu, (i*e))) * v_erroni[i]) % p;
+        m_bw[i][cols-1] = ((calcul_potencia(p, a_primitiu, i*cols-1) % p) * v_erroni[i]) % p;
     }
+    printf("\n");
 }
 
 // Crea sistema a partir de la bw_icognites
@@ -72,15 +73,7 @@ void sistema_bw(int p, int e, int cols, int bw_incognites[], int descodificat[])
         printf("\n[ERROR] Malloc no ha pogut reservar l'espai de memòria\n\n");
         exit(1);
     };
-    crea_ms_bw(p, cols-e-1, cols-2*e, bw_incognites, ms_bw);
-
-    // Vector de solucions del sistema
-    /*int *bw_descodificat;
-    if((bw_descodificat = (int *) malloc((cols-e-2) * sizeof(int))) == NULL){
-        printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
-        exit(1);
-    }*/
-
+    crea_ms_bw(p, e, cols-e-1, cols-2*e-1, bw_incognites, ms_bw);
     
     compatible = discussio_sistemes(p, cols-e-1, cols-2*e, descodificat, ms_bw);
     if(compatible == 0){
@@ -88,36 +81,35 @@ void sistema_bw(int p, int e, int cols, int bw_incognites[], int descodificat[])
         exit(1);
     }
     if(compatible == 1) {
-        printf("L'algorisme de Berlekamp-Welch ha corregit amb èxit els errors\n\n");
+        printf("L'algorisme de Berlekamp-Welch ha corregit amb èxit els errors i el vector ara descodificat és:\n\n");
         imprimeixvector(cols-e-2, descodificat);
     }
     free(ms_bw);
-    //free(bw_descodificat); // *** HAUREM D'UTILITZAR bw_descodificat per enviar-ho al procés de descodificació
 }
 
 // Crea la matriu del sistema Berlekamp-Welch quan és compatible determinat
-void crea_ms_bw(int p, int files, int cols, int bw_incognites[files], int ms_bw[files][cols]){
+void crea_ms_bw(int p, int e, int files, int cols, int bw_incognites[], int ms_bw[files][cols+1]){
     int i = 0;
-    int k = 0;
 
-    for(int j = 0; j < cols-1; j++){
+    for(int j = 0; j < cols; j++){
         if(j > 0){
-            for(k = 0; k < j; k++){
+            for(int k = 0; k < j; k++){
                 ms_bw[k][j] = 0;
             }
+        }   
+        for(i = 0; i < e; i++){
+            ms_bw[i+j][j] = bw_incognites[2*e + cols + i - 1];
         }
-        for(i = k; i < files-cols; i++){
-            ms_bw[i][j] = bw_incognites[files+i];
-        }
-        ms_bw[i][j] = 1;
-        for(i = i + 1; i < files; i++){
-            ms_bw[i][j] = 0;
+
+        ms_bw[i+j][j] = 1;
+        for(int z = i+j+1; z < files; z++){
+            ms_bw[z][j] = 0;
         }
     }
-    for(i = 0; i < files; i++){
-        ms_bw[i][cols-1] = bw_incognites[i];
-    }
+    for(int t = 0; t < files; t++){
+        ms_bw[t][cols] = bw_incognites[t];
+    } 
 
     printf("\nMatriu de solució del sistema de Berlekamp-Welch:\n\n");
-    imprimeixmatriu(files, cols, ms_bw);
+    imprimeixmatriu(files, cols+1, ms_bw);
 }

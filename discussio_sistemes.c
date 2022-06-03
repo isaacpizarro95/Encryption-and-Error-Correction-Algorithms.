@@ -19,7 +19,8 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[f
         }
     }
     // Si rang(m) = rang(m_ampliada) != nombre d'incògnites serà compatible indeterminat
-    if((files - files_nules) != cols-1) determinat = 0;
+    if((files - files_nules) != cols && files == cols) determinat = 0; // cas quan la m_ampliada es quadrada
+    if((files - files_nules) != cols-1 && files != cols) determinat = 0; 
     if(determinat == 0){
         printf("\nEl sistema és compatible indeterminat\n\n");
         return 2;
@@ -47,6 +48,7 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[f
             v_descodificat[cols-2-i+n_nuls] = (b * invers) % p;  
         }
     }
+
     return 1;
 }
 

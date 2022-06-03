@@ -102,6 +102,8 @@ void descodificacio(int p, int files, int cols, int codificat[files][p-1], int d
             // Si el sistema és incompatible apliquem l'algorisme de correcció d'errors de Berlekamp-Welch
             berlekamp_welch(p, p-1, cols, codificat[i], descodificat[i]);
         }
+        printf("descodificat[%d] = \t", i);
+        imprimeixvector(cols, descodificat[i]);
         // Sistema compatible indeterminat
         if(compatible == 2){
             exit(1);

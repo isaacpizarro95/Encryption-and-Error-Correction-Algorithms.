@@ -10,12 +10,12 @@ void configura(int p, int k){
     
     // Reservem l'espai de memòria per als strings que contindran a p i k
     char *s_p;
-    if((s_p = (char *) malloc(len_n(p) * sizeof(int))) == NULL){
+    if((s_p = (char *) malloc((len_n(p)+1) * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
     char *s_k;
-    if((s_k = (char *) malloc(len_n(k) * sizeof(int))) == NULL){
+    if((s_k = (char *) malloc((len_n(k)+1) * sizeof(int))) == NULL){
         printf("[ERROR] Malloc no ha pogut reservar l'espai de memòria\n");
         exit(1);
     }
@@ -35,12 +35,9 @@ void configura(int p, int k){
 }
 
 // Comprovem si existeix l'arxiu de configuració per modificar, si cal, p i k
-// *** PROVOCA L'ERROR 'VIOLACIÓN DE SEGMENTO *** //
 void comprova_configuracio(int *p, int *k){
     FILE *f_configuracio;
     if((f_configuracio = fopen("RS-BW.cfg", "r")) == NULL){
-        //fprintf(stderr, "\n[ERROR]: El fitxer %s no existeix o no es pot obrir...\n\n", "RS-BW.cfg");
-        //exit(1);
         return; // Fem return perque no volem que el programa s'acabi si no existeix el fitxer, només és una comprovació
     } 
     llegeix_configuracio(f_configuracio, p, k);
@@ -59,12 +56,13 @@ void llegeix_configuracio(FILE *fitxer, int *p, int *k){
 
 // Funció personalitzada de itoa
 void custom_itoa(int n, int len, char *nombre){
+    int aux_len = len;
     while(n > 0 && len > 0){
         nombre[len-1] = n % 10 +'0';
         n = n / 10;
         len--; 
     }
-    //nombre[len_n(n)] = '\0'; /*** Si fico aquesta línia no funciona. Preguntar perque ***/
+    nombre[aux_len] = '\0';
 }
 
 // Retorna la longitud d'un nombre (quantitat de digits)
