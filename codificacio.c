@@ -30,7 +30,7 @@ void codificar(int p, int k, char *nom_fitxer){
     gestio_flectura(nom_fitxer, fitxer, missatge, p);
     printf("\n\nMissatge\n");
     imprimeixvector(r, missatge);
-    
+
     // Si r no és múltiple de k
     if(r % k != 0){
         int aux_r = r;
@@ -50,7 +50,6 @@ void codificar(int p, int k, char *nom_fitxer){
     };
     dividir_missatge(r/k, k, missatge, paraules);
     imprimeixmatriu(r/k, k, paraules);
-    printf("\n");
 
     // Codifiquem el missatge
     printf("\n\nCodifiquem el missatge\n\n");
@@ -68,7 +67,6 @@ void codificar(int p, int k, char *nom_fitxer){
     imprimeixmatriu(r/k, p-1, codificat);
     printf("\n\nMissatge codificat\n\n");
     imprimeixvector(((r/k)*(p-1)), missatge_codificat);
-    printf("\n");
 
     // Escrivim el missatge codificat en un nou fitxer
     gestio_fescriptura(nom_fitxer, missatge_codificat, (r/k)*(p-1), "RS.", p-1);

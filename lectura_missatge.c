@@ -10,12 +10,12 @@ void lectura_bin(FILE *fitxer, int *missatge, int p){
     int warning = 0;
     while((fread(&missatge[i], sizeof(int), 1, fitxer)) == 1){
         if(missatge[i] >= p){
-            warning = 1;
+            warning += 1;
             missatge[i] = missatge[i] % p;
         }
         i++;
     }
-    if(warning == 1) fprintf(stderr, "\n[Warning]: El fitxer té algún valor >= p. Es reduirà mòdul p\n\n");
+    if(warning != 0) fprintf(stderr, "\n[Warning]: El fitxer té %d valors >= p. Es reduirà mòdul p\n\n", warning);
 }
 
 // Llegeix el missatge d'un fitxer dat
@@ -24,15 +24,14 @@ void lectura_dat(FILE *fitxer, int *missatge, int p){
     int warning = 0;
 
     // Guardem els valors en 'missatge'
-    while (!feof(fitxer)){
-        fscanf(fitxer, "%d", &(missatge[i]));
+    while(EOF != fscanf(fitxer, "%d", &(missatge[i]))){
         if(missatge[i] >= p){
-            warning = 1;
+            warning += 1;
             missatge[i] = missatge[i] % p;
         }
         i++;
     }
-    if(warning == 1) fprintf(stderr, "\n[Warning]: El fitxer té algún valor >= p. Es reduirà mòdul p\n\n");
+    if(warning != 0) fprintf(stderr, "\n[Warning]: El fitxer té %d valors >= p. Es reduirà mòdul p\n\n", warning);
     rewind(fitxer);
 }
 
@@ -48,12 +47,12 @@ void lectura_txt(FILE *fitxer, int *missatge, int p){
     while((c = fgetc(fitxer)) != EOF){
         missatge[i] = (int)c;
         if(missatge[i] >= p){
-            warning = 1;
+            warning += 1;
             missatge[i] = missatge[i] % p;
         }
         i++;
     }
-    if(warning == 1) fprintf(stderr, "\n[Warning]: El fitxer té algún valor >= p. Es reduirà mòdul p\n\n");
+    if(warning != 0) fprintf(stderr, "\n[Warning]: El fitxer té %d valors >= p. Es reduirà mòdul p\n\n", warning);
 }
 
 // Redimensionem el tamany del missatge en cas de que la seva longitud no sigui divisible per k

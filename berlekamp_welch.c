@@ -17,7 +17,7 @@ void berlekamp_welch(int p, int files, int cols, int v_erroni[files], int descod
             printf("\n[ERROR] Malloc no ha pogut reservar l'espai de memòria\n\n");
             exit(1);
         };
-        printf("\nCreem la matriu de Berlekamp-Welch ampliada\n\n");
+        printf("\nCreem la matriu de Berlekamp-Welch ampliada amb e = %d\n\n", e);
         crea_matriu_bw(p, p-1, 2*e+cols+1, e, v_erroni, m_bw);
         imprimeixmatriu(p-1, 2*e+cols+1, m_bw);
 
@@ -60,7 +60,6 @@ void crea_matriu_bw(int p, int files, int cols, int e, int v_erroni[files], int 
         }
         m_bw[i][cols-1] = ((calcul_potencia(p, a_primitiu, i*e) % p) * v_erroni[i]) % p;
     }
-    printf("\n");
 }
 
 // Crea sistema a partir de la bw_icognites

@@ -39,6 +39,6 @@ void imprimeixmatriu(int files, int cols, int m[][cols]){
         }
         printf("\n");
     }
-    printf("\n");
+    printf("\n\n");
     return;
 }

@@ -40,8 +40,7 @@ void escriure_dat(char *f_input, int *missatge, int mida, char *afegit, int cols
         exit(1);
     }
     for(int i = 0; i < mida; i++){
-        if(i % cols == 0 && i != 0) fprintf(fitxer, "%s", "\n");
-        if(((i+1) / cols) == 1 && ((i+1) % cols) == 0) fprintf(fitxer, "%d", missatge[i]);
+        if(((i+1) % cols) == 0) fprintf(fitxer, "%d\n", missatge[i]);
         else fprintf(fitxer, "%d ", missatge[i]);
     }
     free(f_output);

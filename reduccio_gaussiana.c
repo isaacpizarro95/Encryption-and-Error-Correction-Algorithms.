@@ -11,12 +11,9 @@ void reduccio_gaussiana(int p, int files, int cols, int m_ampliada[files][cols])
     for(int j = 0; j < cols-1; j++){
         int i;
         // Comprovem si hi ha alguna fila nula i si existeix la fiquem al final
-        if(vector_nul(files, m_ampliada[j]) == 1 && j == files - 2){
+        if(vector_nul(files, m_ampliada[j]) == 1){
             intercanvi_files(j, files-1, cols, m_ampliada);
-            continue;
-        }
-        else if(vector_nul(files, m_ampliada[j]) == 1){
-            intercanvi_files(j, files-1, cols, m_ampliada);
+            if(j == files -2) continue;
         }
         // Reduim modul p els coeficients del triangle inferior
         for(i = j + 1; i < files; i++){

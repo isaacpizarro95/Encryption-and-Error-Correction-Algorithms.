@@ -52,10 +52,7 @@ void len_fitxer(FILE *fitxer, char *tipus, int *apuntador_r){
     int aux = 0;
     int len = 0;
     if(strcmp(tipus, "dat") == 0){
-        while (!feof(fitxer)){
-            fscanf(fitxer, "%d", &aux);
-            len++;
-        }
+        while(EOF != fscanf(fitxer, "%d", &aux)) len++;
     }
     else if(strcmp(tipus, "txt") == 0) while((fread(&aux, sizeof(char), 1, fitxer)) == 1) len++;
     else while((fread(&aux, sizeof(int), 1, fitxer)) == 1) len++;
