@@ -57,6 +57,11 @@ void intercanvi_files(int fila_inici, int fila_desti, int cols, int m[][cols]){
 // Calcula (a^potencia) % mòdul p
 int calcul_potencia(int p, int a, int potencia){
     int a_final = a;
+
+    // Reduim l'exponent sabent que a^(p-1) = 1 (mod p)
+    potencia = potencia % (p-1);
+
+    // Calculem la potència
     if(potencia == 0){
         return 1;
     }
