@@ -1,3 +1,7 @@
+// Treball C - Algorismes de Reed-Solomon i Berlekamp-Welch
+// Autor: Isaac Pizarro Contreras
+// NIU: 1636421
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
