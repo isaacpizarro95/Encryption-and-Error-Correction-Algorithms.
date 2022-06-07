@@ -78,7 +78,6 @@ int len_n(int n);
 void custom_itoa(int n, int len, char *nombre);
 
 
-
 // ****************************************************************************** //
 // ****************************** INICI PROGRAMA ******************************** //
 // ****************************************************************************** //
@@ -183,11 +182,15 @@ void check_parametres(int p, int k){
         printf("\n[ERROR] El nombre p ha de ser primer\n\n");
         exit(1);
     }
+    if (p <= 3) {
+        printf("\n[ERROR] El nombre p ha de ser major que 3\n\n");
+        exit(1);
+    }
     if(k+3 > p){
         printf("\n[ERROR] El nombre k ha de ser menor o igual que p-3\n\n");
         exit(1);                
     }
-    else if(k <= 1){
+    if(k <= 1){
         printf("\n[ERROR] El nombre k ha de ser major que 1\n\n");
         exit(1);                 
     }
@@ -487,7 +490,7 @@ void reduccio_gaussiana(int p, int files, int cols, int m_ampliada[files][cols])
             }
             // Calculem l'invers del pivot
             invers = invers_a(m_ampliada[j][j], p);
-            // Resolem la equació del tipus: m_ij + (m_jj * múltiple) = 0 (mod p) => (m_jj^-1 * m_jj) * múltiple = (((0 + p) - m_ij) * m_jj^-1) % p
+            // Resolem la equació del tipus: m_ij + (m_jj * múltiple) = 0 (mod p) => (m_jj^-1 * m_jj) * múltiple = ((p - m_ij) * m_jj^-1) % p
             multiple = ((p - m_ampliada[i][j]) * invers) % p;
             suma_multiple(multiple, p, j, i, cols, m_ampliada);
         }
@@ -509,7 +512,7 @@ int discussio_sistemes(int p, int files, int cols, int v_descodificat[], int m[f
             return 0;
         }
     }
-    // Si rang(m) = rang(m_ampliada) != nombre d'incògnites serà compatible indeterminat
+    // Si rang(m) != nombre d'incògnites serà compatible indeterminat
     if((files - files_nules) != cols-1 && e == 0) determinat = 0; 
     if(determinat == 0){
         printf("\nEl sistema és compatible indeterminat\n\n");
@@ -956,11 +959,6 @@ int len_n(int n){
 
 // La funció retorna 1 si el nombre és primer o 0 si no ho és
 int primer_test(int p){
-    if (p < 3) {
-        printf("\n[ERROR] El nombre p ha de ser major que 3\n\n");
-        return 0;
-    }
-
     // Si p es divisible per qualsevol nombre entre 2 i p/2, no és primer
     for(int i = 2; i <= p/2; i++){
         if (p % i == 0){
